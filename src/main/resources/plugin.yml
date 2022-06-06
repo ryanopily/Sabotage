@@ -1,0 +1,29 @@
+name: SabotageX
+main: ml.sabotage.Main
+version: 1.0.0
+api-version: 1.18
+author: "0-o#9646"
+
+commands:
+    sabotage:
+        aliases: [sab]
+        description: Generic plugin command.
+        permission: zerodasho.sabotage.generic
+    vote:
+        description: Vote for maps in the pregame lobby.
+        permission: zerodasho.sabotage.vote
+    shop:
+        description: Buy in-game shop items.
+        permission: zerodasho.sabotage.shop
+        
+permissions:
+    zerodasho.sabotage.vote:
+        default: true
+    zerodasho.sabotage.shop:
+        default: true
+    zerodasho.sabotage.attributes.nohunger:
+        default: true
+    zerodasho.sabotage.attributes.nodamage:
+        default: true
+    zerodasho.sabotage.attributes.generic:
+        default: true

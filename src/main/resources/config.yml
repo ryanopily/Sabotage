@@ -1,0 +1,140 @@
+hub: hub
+maps:
+- sab1
+- sab2
+- sab3
+items:
+-   weight: 5.0
+    items:
+    -   type: BOW
+    -   type: ARROW
+        amount: 32.0
+-   weight: 3.0
+    items:
+    -   type: STONE_SWORD
+-   weight: 10.0
+    items:
+    -   type: WOOD_SWORD
+-   weight: 5.0
+    items:
+    -   type: LEATHER_HELMET
+-   weight: 2.0
+    items:
+    -   type: LEATHER_CHESTPLATE
+-   weight: 3.0
+    items:
+    -   type: LEATHER_LEGGINGS
+-   weight: 5.0
+    items:
+    -   type: LEATHER_BOOTS
+-   weight: 3.0
+    items:
+    -   type: GOLD_HELMET
+-   weight: 1.0
+    items:
+    -   type: GOLD_CHESTPLATE
+-   weight: 2.0
+    items:
+    -   type: GOLD_LEGGINGS
+-   weight: 3.0
+    items:
+    -   type: GOLD_BOOTS
+-   weight: 5.0
+    items:
+    -   type: FISHING_ROD
+-   weight: 5.0
+    items:
+    -   type: POTION
+        damage: 3.0
+-   weight: 1.0
+    items:
+    -   type: POTION
+        damage: 2.0
+-   weight: 3.0
+    items:
+    -   type: POTION
+        damage: 1.0
+special_items:
+-   weight: 5.0
+    items:
+    -   type: IRON_SWORD
+-   weight: 3.0
+    items:
+    -   type: IRON_HELMET
+-   weight: 10.0
+    items:
+    -   type: IRON_CHESTPLATE
+-   weight: 5.0
+    items:
+    -   type: IRON_LEGGINGS
+-   weight: 2.0
+    items:
+    -   type: IRON_BOOTS
+-   weight: 3.0
+    items:
+    -   type: TNT
+        amount: 5.0
+-   weight: 1.0
+    items:
+    -   type: POTION
+        damage: 35.0
+-   weight: 1.0
+    items:
+    -   type: POTION
+        damage: 34.0
+-   weight: 1.0
+    items:
+    -   type: POTION
+        damage: 33.0
+detective:
+    detective: 0.0
+    innocent: -50.0
+    saboteur: 40.0
+    death: 0.0
+innocent:
+    detective: -75.0
+    innocent: -50.0
+    saboteur: 40.0
+    death: 0.0
+saboteur:
+    detective: 40.0
+    innocent: 25.0
+    saboteur: -75.0
+    death: -20.0
+lobby:
+    hours: 0.0
+    minutes: 1.0
+    seconds: 30.0
+    reload: 0.0
+tester:
+    hours: 0.0
+    minutes: 0.0
+    seconds: 15.0
+    reload: 3.0
+refill:
+    hours: 0.0
+    minutes: 5.0
+    seconds: 0.0
+    reload: 0.0
+ingame:
+    hours: 0.0
+    minutes: 10.0
+    seconds: 0.0
+    reload: 0.0
+panic_life:
+    hours: 0.0
+    minutes: 0.0
+    seconds: 3.0
+    reload: 0.0
+collection:
+    hours: 0.0
+    minutes: 0.0
+    seconds: 15.0
+    reload: 0.0
+corpse_tester:
+    hours: 0.0
+    minutes: 0.0
+    seconds: 10.0
+    reload: 0.0
+test_corpse_range: 10.0
+max_panic_blocks: 5.0
