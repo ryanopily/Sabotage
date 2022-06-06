@@ -1,21 +1,20 @@
 package ml.sabotage.game.events;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-
-import ml.sabotage.game.roles.IngamePlayer;
 
 public class SmiteEvent extends Event {
 
 	private static final HandlerList handlers = new HandlerList();
 
-	private IngamePlayer player;
+	private Player player;
 	
-	public SmiteEvent(IngamePlayer player) {
+	public SmiteEvent(Player player) {
 		this.player = player;
 	}
 	
-	public IngamePlayer getPlayer() {
+	public Player getPlayer() {
 		return this.player;
 	}
 	

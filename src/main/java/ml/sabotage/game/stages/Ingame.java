@@ -209,9 +209,10 @@ public class Ingame implements Listener {
     
     @EventHandler
     public void onSmite(SmiteEvent event) {
-    	Player player = event.getPlayer().player;
+    	Player player = event.getPlayer();
     	player.setHealth(20.0);
     	player.setGameMode(GameMode.SPECTATOR);
+    	player.teleport(this.getWorld().getSpawnLocation());
     	GUI.addSpectator(player);
     }
     

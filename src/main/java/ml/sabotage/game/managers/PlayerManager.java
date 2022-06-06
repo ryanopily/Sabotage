@@ -135,7 +135,7 @@ public class PlayerManager {
      * @param player
      */
     public void smite(Player player) {
-    	Bukkit.getPluginManager().callEvent(new SmiteEvent(alive.remove(player.getUniqueId())));
+    	Bukkit.getPluginManager().callEvent(new SmiteEvent(player));
     }
 
     void assignRoles(Collection<UUID> players) {

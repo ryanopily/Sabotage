@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 
 import org.bukkit.World;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import ml.sabotage.Main;
 import ml.sabotage.utils.SabUtils;
@@ -18,13 +17,7 @@ public class SabArena extends CopiedArena {
 	}
 
 	public void delete(World kickPlayersTo) {
-		SabArena arena = this;
-
-		new BukkitRunnable() {
-			@Override
-			public void run() {
-				arena.delete(kickPlayersTo);
-			}
-		}.runTaskLater(Main.plugin, 50L);
+		super.delete(kickPlayersTo);
+		Main.ACTIVE_ARENAS.remove(this);
 	}
 }

@@ -7,6 +7,9 @@ import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import ml.sabotage.Main;
 
 /**
  * Represents a temporary world.
@@ -60,13 +63,22 @@ public class CopiedArena implements IArena {
 		final World dest = kickPlayersTo;
 		world.getPlayers().forEach(p -> p.teleport(dest.getSpawnLocation()));
 		
-		try {
-			Bukkit.unloadWorld(world, false);
-			FileUtils.deleteDirectory(source);
-		} catch (IOException ex) {
-			System.err.println(String.format("[Plumber] Failed to delete CopiedArena '%s'", world.getName()));
-			ex.printStackTrace(System.err);
-		}
+		new BukkitRunnable() {
+
+			@Override
+			public void run() {
+				try {
+					Bukkit.unloadWorld(world, false);
+					FileUtils.deleteDirectory(source);
+				} catch (IOException ex) {
+					System.err.println(String.format("[Plumber] Failed to delete CopiedArena '%s'", world.getName()));
+					ex.printStackTrace(System.err);
+				}
+			}
+			
+		}.runTaskLater(Main.plugin, 100L);
+		
+
 	}
 
 	@Override
