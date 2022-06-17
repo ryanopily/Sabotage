@@ -36,7 +36,6 @@ public class Sabotage extends BukkitRunnable implements Listener {
 	
 	private int current_state;
 
-	
 	public Sabotage() {
 		this.players = Sets.newHashSet();
 		

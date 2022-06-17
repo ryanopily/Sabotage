@@ -8,14 +8,20 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BookMeta;
 
 import ml.sabotage.Main;
-import ml.zer0dasho.plumber.config.Config;
-import ml.zer0dasho.plumber.config.DataRW;
+import ml.zer0dasho.config.Config;
+import ml.zer0dasho.config.format.json.JSONFormat;
 import ml.zer0dasho.plumber.utils.Sprink;
 
 public class BookData extends Config {
 
-	public BookData() {
-		super(new File(Main.DATA_FOLDER + "/book.json"), DataRW.JSONRW, Main.plugin.getResource("book.json"));
+	protected BookData() {}
+	
+	public static BookData load() {
+		return Config.load(
+				BookData.class, 
+				new File(Main.DATA_FOLDER + "/book.json"), 
+				JSONFormat.FORMATTER, 
+				() -> new String(Main.plugin.getResource("book.json").readAllBytes()));
 	}
 	
 	public Book book = new Book();

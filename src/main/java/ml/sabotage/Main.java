@@ -19,7 +19,6 @@ import ml.sabotage.commands.VoteCommand;
 import ml.sabotage.config.ConfigSettings;
 import ml.sabotage.game.SabPlayer;
 import ml.sabotage.game.stages.Sabotage;
-import ml.zer0dasho.plumber.config.Config;
 import ml.zer0dasho.plumber.game.arena.IArena;
 
 public class Main extends JavaPlugin {
@@ -40,9 +39,9 @@ public class Main extends JavaPlugin {
     }
 
 	@Override
-    public void onEnable() {     	
+    public void onEnable() {    
     	Main.plugin = this;  
-        Main.config = Config.create(new ConfigSettings(), ConfigSettings.class, false);
+        Main.config = ConfigSettings.load();
         
         if(Validate.validate()) {
         	Main.sabotage = new Sabotage();

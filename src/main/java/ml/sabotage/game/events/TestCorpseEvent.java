@@ -7,8 +7,6 @@ import ml.sabotage.game.tasks.TestCorpse;
 
 public class TestCorpseEvent extends Event {
 	
-	private static final HandlerList handlers = new HandlerList();
-
 	private TestCorpse testCorpse;
 	
 	public TestCorpseEvent(TestCorpse testCorpse) {
@@ -19,11 +17,13 @@ public class TestCorpseEvent extends Event {
 		return this.testCorpse;
 	}
 	
+	private static final HandlerList HANDLERS = new HandlerList();
+	
     public HandlerList getHandlers() {
-        return handlers;
+        return HANDLERS;
     }
 
     public static HandlerList getHandlerList() {
-        return handlers;
+        return HANDLERS;
     }
 }

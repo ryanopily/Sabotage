@@ -26,7 +26,6 @@ import ml.sabotage.config.InventoryData;
 import ml.sabotage.config.PlayerData;
 import ml.sabotage.game.stages.Ingame;
 import ml.sabotage.game.stages.Sabotage;
-import ml.zer0dasho.plumber.config.Config;
 import ml.zer0dasho.plumber.utils.Sprink;
 
 public class GenericCommands implements CommandExecutor, TabCompleter {
@@ -187,7 +186,7 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 	 * @param sender
 	 */
 	public static void meta(Player player) {
-		InventoryData inventoryData = Config.create(new InventoryData(), InventoryData.class, false);
+		InventoryData inventoryData = InventoryData.load();
 		inventoryData.inventory = Lists.newArrayList(player.getInventory().getContents());
 		inventoryData.save();
 	}

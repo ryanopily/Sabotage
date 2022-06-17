@@ -4,7 +4,6 @@ import org.bukkit.entity.Player;
 
 import ml.sabotage.commands.GenericCommands;
 import ml.sabotage.config.PlayerData;
-import ml.zer0dasho.plumber.config.Config;
 
 public class SabPlayer {
 	
@@ -13,7 +12,7 @@ public class SabPlayer {
 
     public SabPlayer(Player player) {
         this.player = player;
-        this.config = Config.create(new PlayerData(player.getUniqueId()), PlayerData.class, false);
+        this.config = PlayerData.load(player.getUniqueId());
     }
 
     public void updateKarma() {

@@ -474,7 +474,7 @@ public class Ingame implements Listener {
         	
         	victim.die(killer);
         	playerManager.smite(victim.player);
-        	CorpseImmortal.API.spawnCorpse(victim.player.getName(), deathbed);
+        	CorpseImmortal.API().spawnCorpse(victim.player.getName(), deathbed);
         	
         	if(killer != null && playerManager.isAlive(killer.player.getUniqueId())) {
             	killer.kill(victim);

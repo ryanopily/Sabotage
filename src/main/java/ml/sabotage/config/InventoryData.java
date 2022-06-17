@@ -8,13 +8,18 @@ import org.bukkit.inventory.ItemStack;
 import com.google.common.collect.Lists;
 
 import ml.sabotage.Main;
-import ml.zer0dasho.plumber.config.Config;
-import ml.zer0dasho.plumber.config.DataRW;
+import ml.zer0dasho.config.Config;
+import ml.zer0dasho.config.format.json.JSONFormat;
 
 public class InventoryData extends Config {
 
-	public InventoryData() {
-		super(new File(Main.DATA_FOLDER, "inventory.yml"), DataRW.YAMLRW, null);
+	protected InventoryData() {}
+	
+	public static InventoryData load() {
+		return Config.load(
+				InventoryData.class, 
+				new File(Main.DATA_FOLDER, "inventory.json"), 
+				JSONFormat.FORMATTER);
 	}
 	
 	public List<ItemStack> inventory = Lists.newArrayList();

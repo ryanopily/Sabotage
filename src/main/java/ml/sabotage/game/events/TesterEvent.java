@@ -7,8 +7,6 @@ import ml.sabotage.game.tasks.Tester;
 
 public class TesterEvent extends Event {
 	
-	private static final HandlerList handlers = new HandlerList();
-	
 	private Tester tester;
 	
 	public TesterEvent(Tester tester) {
@@ -19,11 +17,13 @@ public class TesterEvent extends Event {
 		return this.tester;
 	}
 	
+	private static final HandlerList HANDLERS = new HandlerList();
+	
     public HandlerList getHandlers() {
-        return handlers;
+        return HANDLERS;
     }
 
     public static HandlerList getHandlerList() {
-        return handlers;
+        return HANDLERS;
     }
 }

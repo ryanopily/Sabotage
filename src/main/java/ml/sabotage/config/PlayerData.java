@@ -4,13 +4,19 @@ import java.io.File;
 import java.util.UUID;
 
 import ml.sabotage.Main;
-import ml.zer0dasho.plumber.config.Config;
-import ml.zer0dasho.plumber.config.DataRW;
+import ml.zer0dasho.config.Config;
+import ml.zer0dasho.config.format.yaml.YAMLFormat;
 
 public class PlayerData extends Config {
 	
-	public PlayerData(UUID uuid) {
-		super(new File(Main.DATA_FOLDER + "/players/" + uuid.toString()), DataRW.YAMLRW, null);
+	protected PlayerData() {}
+	
+	public static PlayerData load(UUID uuid) {
+		return Config.load(
+				PlayerData.class, 
+				new File(Main.DATA_FOLDER + "/players/" + uuid.toString()), 
+				YAMLFormat.FORMATTER, 
+				() -> YAMLFormat.FORMATTER.write(new PlayerData()));
 	}
 	
     public int karma = 200,

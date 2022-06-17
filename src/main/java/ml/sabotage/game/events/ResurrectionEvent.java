@@ -7,8 +7,6 @@ import ml.sabotage.game.roles.IngamePlayer;
 
 public class ResurrectionEvent extends Event {
 
-	private static final HandlerList handlers = new HandlerList();
-
 	private IngamePlayer player;
 	
 	public ResurrectionEvent(IngamePlayer player) {
@@ -19,11 +17,13 @@ public class ResurrectionEvent extends Event {
 		return this.player;
 	}
 	
+	private static final HandlerList HANDLERS = new HandlerList();
+
     public HandlerList getHandlers() {
-        return handlers;
+        return HANDLERS;
     }
 
     public static HandlerList getHandlerList() {
-        return handlers;
+        return HANDLERS;
     }
 }

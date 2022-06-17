@@ -33,6 +33,7 @@ public class CollectionGui extends ScoreMenu {
 	}
 	
 	public void setTimer(Timer timer) {
-		this.timer = timer;
+		if(timer != null)
+			this.timer = timer;
 	}
 }

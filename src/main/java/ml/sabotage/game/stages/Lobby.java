@@ -24,7 +24,6 @@ import ml.sabotage.commands.VoteCommand;
 import ml.sabotage.config.BookData;
 import ml.sabotage.game.SabArena;
 import ml.sabotage.game.gui.LobbyGui;
-import ml.zer0dasho.plumber.config.Config;
 import ml.zer0dasho.plumber.game.Timer;
 import ml.zer0dasho.plumber.game.arena.IArena;
 import ml.zer0dasho.plumber.utils.Sprink;
@@ -46,7 +45,7 @@ public class Lobby implements Listener {
        	this.players = Sets.newHashSet();
     	this.timer = Main.config.lobby.getTimer();
        	this.GUI = new LobbyGui(timer, players);
-    	this.bookData = Config.create(new BookData(), BookData.class, false);
+    	this.bookData = BookData.load();
     }
     
     public void add(UUID uuid) {
@@ -78,9 +77,10 @@ public class Lobby implements Listener {
     
     void start() throws IOException {
     	VoteCommand.resetMapSelection();
-    	
-    	this.hub = new SabArena(Main.config.hub);	
+
+		this.hub = new SabArena(Main.config.hub);
     	sabotage.players.forEach(this::add);
+    	
        	Trycat.Try(() -> sabotage.collection.map.delete(this.hub.getWorld()), (e) -> {});
      	
     	Bukkit.getPluginManager().registerEvents(this, Main.plugin);

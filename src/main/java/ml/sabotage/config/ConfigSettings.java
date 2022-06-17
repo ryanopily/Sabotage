@@ -10,21 +10,27 @@ import org.bukkit.inventory.ItemStack;
 import com.google.common.collect.Lists;
 
 import ml.sabotage.Main;
+import ml.zer0dasho.config.Config;
+import ml.zer0dasho.config.format.json.JSONFormat;
 import ml.zer0dasho.plumber.RandomCollection;
-import ml.zer0dasho.plumber.config.Config;
-import ml.zer0dasho.plumber.config.DataRW;
 import ml.zer0dasho.plumber.game.Timer;
 
 public class ConfigSettings extends Config {
 	
-	public ConfigSettings() {
-		super(new File(Main.DATA_FOLDER + "/config.yml"), DataRW.YAMLRW, Main.plugin.getResource("config.yml"));
+	protected ConfigSettings() {}
+	
+	public static ConfigSettings load() {
+		return Config.load(
+				ConfigSettings.class, 
+				new File(Main.DATA_FOLDER + "/config.json"), 
+				JSONFormat.FORMATTER, 
+				() -> new String("format: \"json\"\n"));
 	}
 	
 	public String hub = "hub";
 	
-	private List<Item> items = Lists.newArrayList();
-	private List<Item> special_items = Lists.newArrayList();
+	public List<Item> items = Lists.newArrayList();
+	public List<Item> special_items = Lists.newArrayList();
 	public List<String> maps = Lists.newArrayList();
 	
 	public Karma detective = new Karma(), 
@@ -59,6 +65,8 @@ public class ConfigSettings extends Config {
 		public double weight;
 		public List<ItemStack> items;
 		
+		public Item() {}
+		
 		public Item(double weight, ItemStack...items) {
 			this.weight = weight;
 			this.items = Arrays.asList(items);
@@ -66,10 +74,12 @@ public class ConfigSettings extends Config {
 	}
 	
 	public static class Karma {
+		
 		public int detective, innocent, saboteur, death;
 	}
 
 	public static class Time {
+		
 		public int hours, minutes, seconds, reload;
 		
 		public Timer getTimer() {

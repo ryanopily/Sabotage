@@ -4,6 +4,8 @@ version: 1.0.0
 api-version: 1.18
 author: "0-o#9646"
 
+depend: [Config, CorpseImmortal, FastAsyncWorldEdit]
+
 commands:
     sabotage:
         aliases: [sab]
