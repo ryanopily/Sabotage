@@ -63,7 +63,7 @@ public class Lobby implements Listener {
     	player.setScoreboard(GUI.scoreboard);
        	GUI.update();
        	
-		Trycat.Try(() -> player.getInventory().addItem(bookData.getBook()), (e) -> e.printStackTrace());
+		player.getInventory().addItem(bookData.book);
     }
     
     public void remove(UUID uuid) {

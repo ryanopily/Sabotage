@@ -21,7 +21,7 @@
 	        	<includes>
 		        	<include>plugin.yml</include>
 		          	<include>config.yml</include>
-				  	<include>book.json</include>
+				  	<include>book.yml</include>
 	        	</includes>
       		</resource>
     	</resources>
