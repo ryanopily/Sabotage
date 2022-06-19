@@ -19,5 +19,5 @@ public interface IArena {
 	 * @see World
 	 */
 	public void delete(World kickPlayersTo);
-	
+	public void deleteNow(World kickPlayersTo); 
 }

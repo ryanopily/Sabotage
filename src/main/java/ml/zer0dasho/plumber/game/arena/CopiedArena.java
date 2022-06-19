@@ -33,9 +33,8 @@ public class CopiedArena implements IArena {
 	 * @throws IOException
 	 */
 	public CopiedArena(String name, File source) throws IOException {
-		FileUtils.copyDirectory(source, new File(Bukkit.getWorldContainer(), name));
-		
 		this.source = new File(Bukkit.getWorldContainer(), name);
+		FileUtils.copyDirectory(source, this.source);
 		this.world = new WorldCreator(name).createWorld();
 		this.world.setAutoSave(false);
 	}
@@ -57,28 +56,30 @@ public class CopiedArena implements IArena {
 	 * Kicks players out of the arena and then deletes its world folder.
 	 */
 	public void delete(World kickPlayersTo) {
+		new BukkitRunnable() {
+
+			@Override
+			public void run() {
+				deleteNow(kickPlayersTo);
+			}
+			
+		}.runTaskLater(Main.plugin, 200L);
+	}
+	
+	public void deleteNow(World kickPlayersTo) {
 		if(kickPlayersTo == null)
 			kickPlayersTo = Bukkit.getWorlds().get(0);
 		
 		final World dest = kickPlayersTo;
 		world.getPlayers().forEach(p -> p.teleport(dest.getSpawnLocation()));
-		
-		new BukkitRunnable() {
 
-			@Override
-			public void run() {
-				try {
-					Bukkit.unloadWorld(world, false);
-					FileUtils.deleteDirectory(source);
-				} catch (IOException ex) {
-					System.err.println(String.format("[Plumber] Failed to delete CopiedArena '%s'", world.getName()));
-					ex.printStackTrace(System.err);
-				}
-			}
-			
-		}.runTaskLater(Main.plugin, 100L);
-		
-
+		try {
+			Bukkit.unloadWorld(world, false);
+			FileUtils.forceDelete(source);
+		} catch (IOException ex) {
+			System.err.println(String.format("[Plumber] Failed to delete CopiedArena '%s'", world.getName()));
+			//ex.printStackTrace(System.err);
+		}
 	}
 
 	@Override

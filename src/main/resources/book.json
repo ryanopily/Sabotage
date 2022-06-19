@@ -1,17 +1,17 @@
 {
   "book": {
-    "title": "§cSabotage",
-    "author": "§cBinxLucky",
+    "title": "Â§cSabotage",
+    "author": "Â§cBinxLucky",
     "pages": [
-      "§9§lLobby§8\n\nRight now you\u0027re in the lobby.§8Here you don\u0027t have to do anything except wait for the game to begin.§8You can visit the §8§oHow to Play §8section as well as the §8§oTips and Tricks §8section.",
-      "§4§lGetting to know Sabotage§8\n\nSabotage is a strategy game with different roles.§4§l- Saboteurs§2§l- Innocents§9§l- Detectives§8You must kill certain people bases on these roles.",
-      "§6§nPlaying as Saboteur§8\n\nYour job as a §cSaboteur §8consists of killing all the §2Innocents§8and the §9Detective.§cSaboteurs §8are the only ones that know everyone\u0027s role. Only kills those that have a §2§oGreen §8or §9§oBlue §8name.",
-      "§6§nPlaying as Innocent§8\n\nYour job as an §2Innocent §8consists of killing all the §cSaboteurs.§8As an §2Innocent §8you can\u0027t see any roles except for the §9Detective§8, so only kill people that kill without a reason, or that act suspicious.",
-      " §6§nPlaying as Detective§8\n\nYour job as a §9Detective §8consists of killing the §cSaboteurs.§8You\u0027re the same as the innocents except you have §8§oForceps §8and §8§oInsight. §8You can read more about this in the §8§oHow to Play §8section.",
-      "§9§lKarma§8\n\nKarma is used as money and as a way to show if you kill correctly.§8When you kill correctly, you get karma and when you don\u0027t, you lose karma. The idea is to have a lot of karma.",
-      "§9§lShop§8\n\nThe shop permits you to buy items based on your role, which can be §2Innocent, §cSaboteur, §8and §9Detective.§8You can access the shop when the game begins, writing the command §8§o/shop.",
-      "§9§lRules§8\n\nSome rules include§8- Be respectful§8- Don\u0027t use hacks§8- Don\u0027t kill randomly§8- Don\u0027t false report",
-      "§8You should probably visit the §8§oHow to Play §8section in the lobby."
+      "Â§9Â§lLobbyÂ§8\n\nRight now you're in the lobby.Â§8Here you don\u0027t have to do anything except wait for the game to begin.Â§8You can visit the Â§8Â§oHow to Play Â§8section as well as the Â§8Â§oTips and Tricks Â§8section.",
+      "Â§4Â§lGetting to know SabotageÂ§8\n\nSabotage is a strategy game with different roles.Â§4Â§l- SaboteursÂ§2Â§l- InnocentsÂ§9Â§l- DetectivesÂ§8You must kill certain people bases on these roles.",
+      "Â§6Â§nPlaying as SaboteurÂ§8\n\nYour job as a Â§cSaboteur Â§8consists of killing all the Â§2InnocentsÂ§8and the Â§9Detective.Â§cSaboteurs Â§8are the only ones that know everyone\u0027s role. Only kills those that have a Â§2Â§oGreen Â§8or Â§9Â§oBlue Â§8name.",
+      "Â§6Â§nPlaying as InnocentÂ§8\n\nYour job as an Â§2Innocent Â§8consists of killing all the Â§cSaboteurs.Â§8As an Â§2Innocent Â§8you can\u0027t see any roles except for the Â§9DetectiveÂ§8, so only kill people that kill without a reason, or that act suspicious.",
+      " Â§6Â§nPlaying as DetectiveÂ§8\n\nYour job as a Â§9Detective Â§8consists of killing the Â§cSaboteurs.Â§8You\u0027re the same as the innocents except you have Â§8Â§oForceps Â§8and Â§8Â§oInsight. Â§8You can read more about this in the Â§8Â§oHow to Play Â§8section.",
+      "Â§9Â§lKarmaÂ§8\n\nKarma is used as money and as a way to show if you kill correctly.Â§8When you kill correctly, you get karma and when you don\u0027t, you lose karma. The idea is to have a lot of karma.",
+      "Â§9Â§lShopÂ§8\n\nThe shop permits you to buy items based on your role, which can be Â§2Innocent, Â§cSaboteur, Â§8and Â§9Detective.Â§8You can access the shop when the game begins, writing the command Â§8Â§o/shop.",
+      "Â§9Â§lRulesÂ§8\n\nSome rules includeÂ§8- Be respectfulÂ§8- Don\u0027t use hacksÂ§8- Don\u0027t kill randomlyÂ§8- Don\u0027t false report",
+      "Â§8You should probably visit the Â§8Â§oHow to Play Â§8section in the lobby."
     ]
   }
 }

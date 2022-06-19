@@ -135,6 +135,8 @@ public class PlayerManager {
      * @param player
      */
     public void smite(Player player) {
+    	/* Thanks AkiraDev ;)*/
+    	this.alive.remove(player.getUniqueId());
     	Bukkit.getPluginManager().callEvent(new SmiteEvent(player));
     }
 

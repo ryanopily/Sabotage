@@ -53,7 +53,7 @@ public class Main extends JavaPlugin {
     @Override
     public void onDisable() {
     	World main = Bukkit.getWorlds().get(0);
-    	Lists.newArrayList(ACTIVE_ARENAS.iterator()).forEach(arena -> arena.delete(main));
+    	Lists.newArrayList(ACTIVE_ARENAS.iterator()).forEach(arena -> arena.deleteNow(main));
     }
     
     private void addCommands() {

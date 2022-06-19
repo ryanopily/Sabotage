@@ -11,7 +11,7 @@ import com.google.common.collect.Lists;
 
 import ml.sabotage.Main;
 import ml.zer0dasho.config.Config;
-import ml.zer0dasho.config.format.json.JSONFormat;
+import ml.zer0dasho.config.format.yaml.YAMLFormat;
 import ml.zer0dasho.plumber.RandomCollection;
 import ml.zer0dasho.plumber.game.Timer;
 
@@ -22,9 +22,9 @@ public class ConfigSettings extends Config {
 	public static ConfigSettings load() {
 		return Config.load(
 				ConfigSettings.class, 
-				new File(Main.DATA_FOLDER + "/config.json"), 
-				JSONFormat.FORMATTER, 
-				() -> new String("format: \"json\"\n"));
+				new File(Main.DATA_FOLDER + "/config.yml"), 
+				YAMLFormat.FORMATTER, 
+				() -> new String(Main.plugin.getResource("config.yml").readAllBytes()));
 	}
 	
 	public String hub = "hub";

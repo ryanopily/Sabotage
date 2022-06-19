@@ -18,6 +18,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import com.google.common.collect.Lists;
 
@@ -70,6 +71,8 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 				test(sender, true);
 			else if(cmd.matches("meta.*") && sender.hasPermission(SAB_TEST))
 				meta((Player)sender);
+			else if(cmd.matches("unmeta.*") && sender.hasPermission(SAB_TEST)) 
+				unmeta((Player)sender);
 			else if(cmd.matches("pause.*") && sender.hasPermission(SAB_PAUSE)) 
 				pause(sender, true);
 			else if(cmd.matches("build.*") && sender.hasPermission(BUILD)) 
@@ -189,6 +192,11 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 		InventoryData inventoryData = InventoryData.load();
 		inventoryData.inventory = Lists.newArrayList(player.getInventory().getContents());
 		inventoryData.save();
+	}
+	
+	public static void unmeta(Player player) {
+		InventoryData inventoryData = InventoryData.load();
+		player.getInventory().setContents(inventoryData.inventory.toArray(new ItemStack[0]));
 	}
 	
 	/**

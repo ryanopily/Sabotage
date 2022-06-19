@@ -9,7 +9,7 @@ import com.google.common.collect.Lists;
 
 import ml.sabotage.Main;
 import ml.zer0dasho.config.Config;
-import ml.zer0dasho.config.format.json.JSONFormat;
+import ml.zer0dasho.config.format.yaml.YAMLFormat;
 
 public class InventoryData extends Config {
 
@@ -18,8 +18,9 @@ public class InventoryData extends Config {
 	public static InventoryData load() {
 		return Config.load(
 				InventoryData.class, 
-				new File(Main.DATA_FOLDER, "inventory.json"), 
-				JSONFormat.FORMATTER);
+				new File(Main.DATA_FOLDER, "inventory.yml"), 
+				YAMLFormat.FORMATTER,
+				() -> YAMLFormat.FORMATTER.write(new InventoryData()));
 	}
 	
 	public List<ItemStack> inventory = Lists.newArrayList();
