@@ -1,5 +1,5 @@
 book:
--   ==: org.bukkit.inventory.ItemStack
+    ==: org.bukkit.inventory.ItemStack
     v: 3105
     type: WRITTEN_BOOK
     meta:
