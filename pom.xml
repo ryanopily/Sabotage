@@ -21,7 +21,7 @@
 		</repository>
 		<repository>
 			<id>akiradev-repo</id>
-			<url>https://repo.akiradev.xyz/</url>
+			<url>https://repo.akiradev.xyz/public</url>
 		</repository>
 	</repositories>
 
