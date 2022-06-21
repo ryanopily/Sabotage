@@ -19,6 +19,10 @@
 			<id>everything</id>
 			<url>https://repo.citizensnpcs.co/</url>
 		</repository>
+		<repository>
+			<id>akiradev-repo</id>
+			<url>https://repo.akiradev.xyz/</url>
+		</repository>
 	</repositories>
 
  	<dependencies>
