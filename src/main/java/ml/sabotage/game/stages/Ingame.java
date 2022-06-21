@@ -333,7 +333,7 @@ public class Ingame implements Listener {
 		if(!this.playerManager.isAlive(e.getEntity().getUniqueId()))
 			return;
 		
-		if(!this.playerManager.isAlive(damager.player.getUniqueId()) || damager == null) {
+		if(damager == null || !this.playerManager.isAlive(damager.player.getUniqueId())) {
 			e.setCancelled(true);
 			return;
 		}
