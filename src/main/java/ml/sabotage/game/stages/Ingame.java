@@ -57,7 +57,7 @@ public class Ingame implements Listener {
     
     public final IngameGui GUI;
     
-    private Sabotage sabotage;
+    private final Sabotage sabotage;
   
     public Ingame(Sabotage sabotage) {
     	this.sabotage = sabotage;

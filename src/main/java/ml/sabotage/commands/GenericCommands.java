@@ -24,6 +24,7 @@ import ml.sabotage.config.PlayerData;
 import ml.sabotage.game.stages.Ingame;
 import ml.sabotage.game.stages.Sabotage;
 import ml.zer0dasho.plumber.utils.Sprink;
+import org.jetbrains.annotations.NotNull;
 
 public class GenericCommands implements CommandExecutor, TabCompleter {
 
@@ -104,7 +105,7 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 			DEFAULT, DEFAULT, DEFAULT, DEFAULT, SAB_START, SAB_STOP, SAB_TEST, SAB_TEST, SAB_PAUSE, BUILD, SAB_RESURRECT);
 	
 	@Override
-	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+	public List<String> onTabComplete(CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 		String cmd = String.join(" ", args);
 		List<String> result = Lists.newArrayList();
 		
@@ -153,8 +154,8 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 	/**
 	 * Initiates collection on selectedMap, or the first available option if null.
 	 * 
-	 * @param sender
-	 * @param selectedMap
+	 * @param sender - The player who initiated the command.
+	 * @param selectedMap The map to collect on, or null to use the first available option.
 	 */
 	public static void start(CommandSender sender, String selectedMap) {
 		String option = selectedMap == null ? 
@@ -174,7 +175,7 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 	/**
 	 * Ends the game.
 	 *
-	 * @param sender
+	 * @param sender - The player who initiated the command.
 	 */
 	public static void stop(CommandSender sender) {
 		sabotage.endIngame();
@@ -184,7 +185,7 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 	/**
 	 * Refills all chests.
 	 *
-	 * @param sender
+	 * @param sender - The player who initiated the command.
 	 */
 	public static void refill(CommandSender sender) {
 		sabotage.getCollection().getMapManager().refill();
@@ -195,18 +196,18 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 	 * Toggles developer mode. 
 	 * If on, the game will never end, and karma will not be used on shop items.
 	 * 
-	 * @param sender
-	 * @param toggle
+	 * @param sender The sender of the command.
+	 * @param toggle Whether to toggle the mode.
 	 */
 	public static void test(CommandSender sender, boolean toggle) {
-		TEST = toggle ? !TEST : TEST;
+		TEST = toggle != TEST;
 		sender.sendMessage(TEST ? DEV_ON : DEV_OFF);
 	}
 	
 	/**
 	 * Gets damage of held item.
 	 * 
-	 * @param player
+	 * @param player The player to get the damage of.
 	 */
 	public static void meta(Player player) {
 		InventoryData inventoryData = InventoryData.load();
@@ -222,23 +223,23 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 	/**
 	 * Pauses all timers.
 	 * 
-	 * @param sender
-	 * @param toggle
+	 * @param sender send of command
+	 * @param toggle toggle pause
 	 */
 	public static void pause(CommandSender sender, boolean toggle) {
-		PAUSE = toggle ? !PAUSE : PAUSE;
+		PAUSE = toggle != PAUSE;
 		sender.sendMessage(PAUSE ? PAUSED : UNPAUSED);
 	}
 	
 	/**
 	 * Toggles a player's ability to place blocks.
 	 * 
-	 * @param player
-	 * @param toggle
+	 * @param player The player to toggle.
+	 * @param toggle Whether to toggle the ability.
 	 */
 	public static void build(Player player, boolean toggle) {
 		PlayerData data = Main.SAB_PLAYERS.get(player.getUniqueId()).config;
-		data.canBuild = toggle ? !data.canBuild : data.canBuild;
+		data.canBuild = toggle != data.canBuild;
 		data.save();
 		
 		player.sendMessage(data.canBuild ? BUILD_ON : BUILD_OFF);
@@ -247,7 +248,7 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 	/**
 	 * Player opts-in the game.
 	 * 
-	 * @param player
+	 * @param player The player to opt-in.
 	 */
 	public static void join(Player player) {
 		Main.sabotage.add(player);
@@ -259,7 +260,7 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 	/**
 	 * Player opts-out the game.
 	 * 
-	 * @param player
+	 * @param player The player to opt-out.
 	 */
 	public static void leave(Player player) {
 		Main.sabotage.remove(player);
@@ -271,8 +272,8 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 	/**
 	 * Brings a player back from the dead during ingame.
 	 * 
-	 * @param sender
-	 * @param player
+	 * @param sender - The player who initiated the command.
+	 * @param player - The player to bring back.
 	 */
 	public static void resurrect(CommandSender sender, Player player) {
 		if(Main.sabotage.getCurrent_state() != Sabotage.INGAME) {
