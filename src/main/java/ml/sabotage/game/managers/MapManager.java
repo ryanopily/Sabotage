@@ -105,7 +105,7 @@ public class MapManager {
 						entity.remove();
 				});
 			}
-		}.runTaskLater(plugin, 5L);
+		}.runTaskLater(plugin, 10L);
         refill();
     }
     
