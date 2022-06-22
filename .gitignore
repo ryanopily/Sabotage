@@ -3,3 +3,11 @@ target
 .classpath
 .project
 dependency-reduced-pom.xml
+/.idea/.gitignore
+/.idea/compiler.xml
+/.idea/jarRepositories.xml
+/.idea/libraries/Maven__ml_zer0dasho_config_1_0_0.xml
+/.idea/libraries/Maven__ml_zer0dasho_corpseimmortal_1_0_0.xml
+/.idea/misc.xml
+/.idea/vcs.xml
+/.idea/encodings.xml
