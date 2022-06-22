@@ -114,6 +114,7 @@ public class VoteCommand implements CommandExecutor {
         
         List<String> maps = new ArrayList<String>(Main.config.maps);
         SELECTION.clear();
+        VOTES.clear();
 
         while(maps.size() > 0 && SELECTION.size() < 3) 
             SELECTION.add(Sprink.randomElement(maps, true));

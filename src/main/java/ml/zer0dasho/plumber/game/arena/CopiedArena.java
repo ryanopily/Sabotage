@@ -33,8 +33,7 @@ public class CopiedArena implements IArena {
 	 * @throws IOException
 	 */
 	public CopiedArena(String name, File source) throws IOException {
-		this.source = new File(Bukkit.getWorldContainer(), name);
-		FileUtils.copyDirectory(source, this.source);
+		FileUtils.copyDirectory(this.source = source, new File(Bukkit.getWorldContainer(), name));
 		this.world = new WorldCreator(name).createWorld();
 		this.world.setAutoSave(false);
 	}
@@ -74,8 +73,9 @@ public class CopiedArena implements IArena {
 		world.getPlayers().forEach(p -> p.teleport(dest.getSpawnLocation()));
 
 		try {
+			File worldFolder = world.getWorldFolder();
 			Bukkit.unloadWorld(world, false);
-			FileUtils.forceDelete(source);
+			FileUtils.forceDelete(worldFolder);
 		} catch (IOException ex) {
 			System.err.println(String.format("[Plumber] Failed to delete CopiedArena '%s'", world.getName()));
 			//ex.printStackTrace(System.err);

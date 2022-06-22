@@ -12,7 +12,11 @@ import ml.zer0dasho.plumber.game.arena.CopiedArena;
 public class SabArena extends CopiedArena {
 	
 	public SabArena(String worldName) throws IOException {
-		super(worldName, new File(SabUtils.SOURCE, worldName));
+		this(worldName, worldName);
+	}
+	
+	public SabArena(String srcName, String destName) throws IOException {
+		super(destName, new File(SabUtils.SOURCE, srcName));
 		Main.ACTIVE_ARENAS.add(this);
 	}
 

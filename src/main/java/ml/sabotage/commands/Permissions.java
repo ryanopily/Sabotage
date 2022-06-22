@@ -14,6 +14,11 @@ public class Permissions {
 		
 		SHOP          = "zerodasho.sabotage.shop",
 		
+		SABMAP 		  = "zer0dasho.sabotage.sabmap",
+		SABMAP_LOAD	  = "zer0dasho.sabotage.sabmap.load",
+		SABMAP_UNLOAD = "zer0dasho.sabotage.sabmap.unload",
+		SABMAP_SAVE   = "zer0dasho.sabotage.sabmap.save",
+		
 		CRAFT         = "zerodasho.sabotage.attributes.craft",
 		BUILD         = "zerodasho.sabotage.attributes.build",
 		NO_HUNGER     = "zerodasho.sabotage.attributes.nohunger",

@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import ml.sabotage.commands.GenericCommands;
+import ml.sabotage.commands.SabMapCommand;
 import ml.sabotage.commands.ShopCommand;
 import ml.sabotage.commands.VoteCommand;
 import ml.sabotage.config.ConfigSettings;
@@ -58,6 +59,7 @@ public class Main extends JavaPlugin {
     
     private void addCommands() {
     	new GenericCommands();
+    	new SabMapCommand();
     	new ShopCommand();
     	new VoteCommand();
     }

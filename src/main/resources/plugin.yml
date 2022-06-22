@@ -11,6 +11,8 @@ commands:
         aliases: [sab]
         description: Generic plugin command.
         permission: zerodasho.sabotage.generic
+    sabmap:
+        permission: zerodasho.sabotage.sabmap
     vote:
         description: Vote for maps in the pregame lobby.
         permission: zerodasho.sabotage.vote
@@ -19,6 +21,8 @@ commands:
         permission: zerodasho.sabotage.shop
         
 permissions:
+    zerodasho.sabotage.sabmap:
+        default: op
     zerodasho.sabotage.vote:
         default: true
     zerodasho.sabotage.shop:
