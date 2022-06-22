@@ -30,4 +30,52 @@ public class SabPlayer {
         
         updateKarma();
     }
+
+    public int getKarma(){
+        return config.karma;
+    }
+
+    public int getKarmaTotal(){
+        return config.lifetime;
+    }
+
+    public int getWins(){
+        return config.wins;
+    }
+
+    public int getLosses(){
+        return config.losses;
+    }
+
+    public int getKills(){
+        return config.kills;
+    }
+
+    public int getDeaths(){
+        return config.deaths;
+    }
+
+    public int getRightKills(){
+        return config.correct_kills;
+    }
+
+    public int getWrongKills(){
+        return config.wrong_kills;
+    }
+
+    public int getRightDeaths(){
+        return config.correct_deaths;
+    }
+
+    public int getWrongDeaths() {
+        return config.wrong_deaths;
+    }
+
+
+    public void resetKarma(){
+        config.karma = 200;
+        config.lifetime = 200;
+        updateKarma();
+    }
+
 }

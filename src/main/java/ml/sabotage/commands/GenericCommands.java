@@ -1,11 +1,7 @@
 package ml.sabotage.commands;
 
-import static ml.sabotage.commands.Permissions.BUILD;
-import static ml.sabotage.commands.Permissions.DEFAULT;
-import static ml.sabotage.commands.Permissions.SAB_PAUSE;
-import static ml.sabotage.commands.Permissions.SAB_RESURRECT;
-import static ml.sabotage.commands.Permissions.SAB_START;
-import static ml.sabotage.commands.Permissions.SAB_TEST;
+import static ml.sabotage.Main.sabotage;
+import static ml.sabotage.commands.Permissions.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -67,6 +63,10 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 				join((Player) sender);
 			else if(cmd.matches("start.*") && sender.hasPermission(SAB_START)) 
 				start(sender, args.length >= 2 ? args[1] : null);
+			else if (cmd.matches("stop.*") && sender.hasPermission(SAB_STOP))
+				stop(sender);
+			else if (cmd.matches("refill.*") && sender.hasPermission(SAB_TEST))
+				refill(sender);
 			else if(cmd.matches("test.*") && sender.hasPermission(SAB_TEST)) 
 				test(sender, true);
 			else if(cmd.matches("meta.*") && sender.hasPermission(SAB_TEST))
@@ -95,13 +95,13 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 		
 		return true;
 	}
-	
-	
+
+
 	private static final List<String> COMMANDS = Arrays.asList(
-			"info", "version", "join", "leave", "start", "test", "pause", "build", "resurrect");
-	
+			"info", "version", "join", "leave", "start", "stop", "test", "refill", "pause", "build", "resurrect");
+
 	private static final List<String> PERMISSIONS = Arrays.asList(
-			DEFAULT, DEFAULT, DEFAULT, DEFAULT, SAB_START, SAB_TEST, SAB_PAUSE, BUILD, SAB_RESURRECT);
+			DEFAULT, DEFAULT, DEFAULT, DEFAULT, SAB_START, SAB_STOP, SAB_TEST, SAB_TEST, SAB_PAUSE, BUILD, SAB_RESURRECT);
 	
 	@Override
 	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
@@ -170,7 +170,27 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 		else 
 			sender.sendMessage(Sprink.color("&cInvalid map!"));
 	}
-	
+
+	/**
+	 * Ends the game.
+	 *
+	 * @param sender
+	 */
+	public static void stop(CommandSender sender) {
+		sabotage.endIngame();
+		sender.sendMessage(Sprink.color("&aGame ended!"));
+	}
+
+	/**
+	 * Refills all chests.
+	 *
+	 * @param sender
+	 */
+	public static void refill(CommandSender sender) {
+		sabotage.getCollection().getMapManager().refill();
+		sender.sendMessage(Sprink.color("&cChests refilled."));
+	}
+
 	/**
 	 * Toggles developer mode. 
 	 * If on, the game will never end, and karma will not be used on shop items.
@@ -186,7 +206,7 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 	/**
 	 * Gets damage of held item.
 	 * 
-	 * @param sender
+	 * @param player
 	 */
 	public static void meta(Player player) {
 		InventoryData inventoryData = InventoryData.load();
@@ -283,6 +303,8 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 		if(sender.hasPermission(SAB_PAUSE))		result.append("&3/sab pause &8- &7Toggle pause.\n");
 		if(sender.hasPermission(SAB_START))		result.append("&3/sab start &8- &7Force start the game on voted map.\n");
 		if(sender.hasPermission(SAB_START))		result.append("&3/sab start [map] &8- &7Force start the game on specified map.\n");
+		if(sender.hasPermission(SAB_STOP))		result.append("&3/sab stop &8- &7Force end the game.\n");
+		if(sender.hasPermission(SAB_TEST))	    result.append("&3/sab refill &8- &7Refill all chests.\n");
 		if(sender.hasPermission(SAB_RESURRECT))	result.append("&3/sab resurrect [player] &8- &7Bring back a specified player.\n");
 		result.append("&c&m------------------------------------");
 		sender.sendMessage(Sprink.color(result.toString()));

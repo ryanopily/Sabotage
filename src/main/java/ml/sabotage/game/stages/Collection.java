@@ -1,6 +1,7 @@
 package ml.sabotage.game.stages;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
@@ -34,6 +35,7 @@ import ml.zer0dasho.plumber.game.Timer;
 import ml.zer0dasho.plumber.game.arena.IArena;
 import ml.zer0dasho.plumber.utils.Sprink;
 import ml.zer0dasho.plumber.utils.Trycat;
+import org.bukkit.inventory.meta.ItemMeta;
 
 public class Collection implements Listener {
 	
@@ -64,7 +66,7 @@ public class Collection implements Listener {
         Sprink.clearInventory(player, false);
         player.setHealth(20.0);
         player.setGameMode(GameMode.SURVIVAL);
-        player.getInventory().setItem(8, MAGNIFIER);
+        player.getInventory().setItem(8, GenerateMagnifier());
         player.teleport(map.getWorld().getSpawnLocation());
         player.setScoreboard(GUI.scoreboard);
         GUI.update();
@@ -173,6 +175,14 @@ public class Collection implements Listener {
     	if(timer != null)
     		this.timer = timer;
     }
-    
-	static final ItemStack MAGNIFIER = new ItemStack(Material.GLASS_BOTTLE);
+
+	public ItemStack GenerateMagnifier(){
+		ItemStack MAGNIFIER = new ItemStack(Material.GLASS_BOTTLE);
+		ItemMeta meta = MAGNIFIER.getItemMeta();
+		meta.setDisplayName(Sprink.color("&C&lMagnifying glass"));
+		meta.setLore(Arrays.asList(Sprink.color("&cRightclick a player to check for blood")));
+		MAGNIFIER.setItemMeta(meta);
+		return MAGNIFIER;
+	}
+
 }
