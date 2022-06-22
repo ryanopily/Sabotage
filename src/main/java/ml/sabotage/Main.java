@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 
+import ml.sabotage.utils.PlaceholderManager;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -43,7 +44,9 @@ public class Main extends JavaPlugin {
     public void onEnable() {    
     	Main.plugin = this;  
         Main.config = ConfigSettings.load();
-        
+		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI"))
+			Main.plugin.getLogger().log(Level.INFO, "PlaceholderAPI found, enabling Placeholders!");
+			new PlaceholderManager(this).register();
         if(Validate.validate()) {
         	Main.sabotage = new Sabotage();
 			addCommands();

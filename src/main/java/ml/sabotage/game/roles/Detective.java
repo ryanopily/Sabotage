@@ -2,6 +2,7 @@ package ml.sabotage.game.roles;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -10,13 +11,15 @@ import ml.sabotage.config.ConfigSettings.Karma;
 import ml.sabotage.game.SabPlayer;
 import ml.zer0dasho.plumber.utils.Sprink;
 
+import java.util.Arrays;
+
 public class Detective extends IngamePlayer {
 	
     public boolean insight;
 
     public Detective(SabPlayer sabPlayer) {
         super(sabPlayer);
-		player.getInventory().setItem(7, new ItemStack(Material.SHEARS));
+		player.getInventory().setItem(7, GenerateForceps());
     }
     
     @Override
@@ -64,6 +67,15 @@ public class Detective extends IngamePlayer {
             sabPlayer.addKarma(-60);
         	insight = true;
         }
+    }
+
+    public ItemStack GenerateForceps(){
+        ItemStack FORCEPS = new ItemStack(Material.SHEARS);
+        ItemMeta meta = FORCEPS.getItemMeta();
+        meta.setDisplayName(Sprink.color("&a&lForceps"));
+        meta.setLore(Arrays.asList(Sprink.color("&aRightclick a corpse to check player's role.")));
+        FORCEPS.setItemMeta(meta);
+        return FORCEPS;
     }
 
 	@Override
