@@ -5,7 +5,6 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.logging.Level;
 
-import ml.sabotage.utils.PlaceholderManager;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -21,6 +20,7 @@ import ml.sabotage.commands.VoteCommand;
 import ml.sabotage.config.ConfigSettings;
 import ml.sabotage.game.SabPlayer;
 import ml.sabotage.game.stages.Sabotage;
+import ml.sabotage.utils.PlaceholderManager;
 import ml.zer0dasho.plumber.game.arena.IArena;
 
 public class Main extends JavaPlugin {
