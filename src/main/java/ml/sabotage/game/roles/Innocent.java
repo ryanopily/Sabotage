@@ -62,6 +62,20 @@ public class Innocent extends IngamePlayer {
         }
     }
 
+    @SHOP
+    public void Second_Wind() {
+        if(!hasKarma(60)) return;
+
+        double currentHealth = player.getHealth();
+        if(currentHealth >= 10) {
+            player.sendMessage(Sprink.color("&cYou're health is too high!"));
+        }else{
+            player.setHealth(Math.random() * 4 + 8);
+            player.sendMessage(Sprink.color("&aYou just bought Second Wind!"));
+            sabPlayer.addKarma(-60);
+        }
+    }
+
 	@Override
 	public String getRole() {
 		return Sprink.color("an &a&lInnocent");

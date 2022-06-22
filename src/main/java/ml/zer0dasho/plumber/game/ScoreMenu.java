@@ -30,7 +30,7 @@ public class ScoreMenu {
 	/**
 	 * Create a new scoreboard objective (used to track points).
 	 * A criteria of 'dummy' is used for custom GUIs.
-	 * 
+	 *
 	 * @param displayName - Name of the objective
 	 * @param criteria    - Determines how the scores update
 	 * @param displaySlot - Where the scoreboard is displayed
@@ -39,7 +39,7 @@ public class ScoreMenu {
 	public ScoreMenu newObjective(String displayName, String criteria, DisplaySlot displaySlot) {
 		
 		// Overwrite old objectives
-		Optional.ofNullable(objectives.get(displaySlot)).ifPresent(objective -> objective.unregister());
+		Optional.ofNullable(objectives.get(displaySlot)).ifPresent(Objective::unregister);
 		
 		Objective objective = scoreboard.registerNewObjective(displayName, criteria);
 		objective.setDisplayName(displayName);
@@ -61,8 +61,7 @@ public class ScoreMenu {
 	
 	/**
 	 * Create a new team.
-	 * 
-	 * @param id 		  - Team ID
+	 *
 	 * @param displayName - Display name of the team
 	 * @param prefix	  - Team prefix
 	 * @param suffix 	  - Team suffix
@@ -75,8 +74,7 @@ public class ScoreMenu {
 	/**
 	 * 
 	 * Create a new team.
-	 * 
-	 * @param id 		   - Team ID
+	 *
 	 * @param displayName  - Display name of the new team
 	 * @param prefix 	   - Team prefix (Shows before player name)
 	 * @param suffix 	   - Team suffix (Shows after player name)
@@ -87,7 +85,7 @@ public class ScoreMenu {
 	public ScoreMenu newTeam(String displayName, String prefix, String suffix, Boolean seeInvis, Boolean friendlyFire) {
 		
 		// Overwrite old teams
-		Optional.ofNullable(teams.get(displayName)).ifPresent(team -> team.unregister());
+		Optional.ofNullable(teams.get(displayName)).ifPresent(Team::unregister);
 		
 		Team team = scoreboard.registerNewTeam(displayName);
 			 team.setDisplayName(displayName);
@@ -95,7 +93,7 @@ public class ScoreMenu {
 		   	 if(suffix != null) 	  team.setSuffix(Sprink.color(suffix));
 			 if(seeInvis != null) 	  {
 				  team.setCanSeeFriendlyInvisibles(seeInvis);
-				  team.setNameTagVisibility(seeInvis ? NameTagVisibility.ALWAYS : NameTagVisibility.NEVER);
+				  team.setOption(Team.Option.NAME_TAG_VISIBILITY, seeInvis ? Team.OptionStatus.ALWAYS : Team.OptionStatus.NEVER);
 			 }
 			 if(friendlyFire != null) team.setAllowFriendlyFire(friendlyFire);
 

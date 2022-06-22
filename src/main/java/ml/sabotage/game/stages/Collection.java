@@ -44,7 +44,7 @@ public class Collection implements Listener {
 	IArena map;
 	Timer timer;
 	
-	private Sabotage sabotage; 
+	private final Sabotage sabotage;
 	
     public final CollectionGui GUI; 
  
@@ -100,7 +100,7 @@ public class Collection implements Listener {
     }
 	
 	boolean run() {
-		boolean status = GenericCommands.PAUSE ? false : timer.tick();
+		boolean status = !GenericCommands.PAUSE && timer.tick();
 		GUI.update();
 		
 		if(status)
@@ -179,8 +179,9 @@ public class Collection implements Listener {
 	public ItemStack GenerateMagnifier(){
 		ItemStack MAGNIFIER = new ItemStack(Material.GLASS_BOTTLE);
 		ItemMeta meta = MAGNIFIER.getItemMeta();
+		assert meta != null;
 		meta.setDisplayName(Sprink.color("&C&lMagnifying glass"));
-		meta.setLore(Arrays.asList(Sprink.color("&cRightclick a player to check for blood")));
+		meta.setLore(Collections.singletonList(Sprink.color("&cRightclick a player to check for blood")));
 		MAGNIFIER.setItemMeta(meta);
 		return MAGNIFIER;
 	}

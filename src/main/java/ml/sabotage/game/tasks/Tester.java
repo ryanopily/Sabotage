@@ -24,7 +24,7 @@ public class Tester extends BukkitRunnable {
     public final Set<Location> wool, bars;
     
     private Material color;
-    private IngamePlayer tester;
+    private final IngamePlayer tester;
 
     public Tester(MapManager mapManager, IngamePlayer tester) {
     	this.tester = tester;

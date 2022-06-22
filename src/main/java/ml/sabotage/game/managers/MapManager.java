@@ -14,6 +14,9 @@ import com.google.common.collect.Sets;
 
 import ml.zer0dasho.plumber.game.arena.IArena;
 import ml.zer0dasho.plumber.utils.Sprink;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import static ml.sabotage.Main.plugin;
 
 public class MapManager {
 	
@@ -38,31 +41,37 @@ public class MapManager {
     
     void setMap(int size) {
 
-    	Arrays.stream(map.getWorld().getLoadedChunks()).flatMap(chunk -> Stream.of(chunk.getTileEntities())).forEach(block -> {
-    		switch(block.getType()) {
-    		
-    			case CHEST:
-    				chests.add(block.getLocation());
-    				break;
-    				
-    			case ENDER_CHEST:
-    				enderchests.add(block.getLocation());
-    				break;
-    				
-    			case OAK_SIGN:	
-    				Sign sign = (Sign) block;
-    				
-    				if(sign.getLine(0).equalsIgnoreCase("[wool_lamp]")) 
-    					lamps.add(block.getLocation());
-    				
-    				else if(sign.getLine(0).equalsIgnoreCase("[bar]"))
-    					bars.add(block.getLocation());
-    				break;
-    				
-    			default:
-    				break;
-    		}
-     	});
+		new BukkitRunnable() {
+
+			@Override
+			public void run() {
+				Arrays.stream(map.getWorld().getLoadedChunks()).flatMap(chunk -> Stream.of(chunk.getTileEntities())).forEach(block -> {
+					switch(block.getType()) {
+
+						case CHEST:
+							chests.add(block.getLocation());
+							break;
+
+						case ENDER_CHEST:
+							enderchests.add(block.getLocation());
+							break;
+
+						case OAK_SIGN:
+							Sign sign = (Sign) block;
+
+							if(sign.getLine(0).equalsIgnoreCase("[wool_lamp]"))
+								lamps.add(block.getLocation());
+
+							else if(sign.getLine(0).equalsIgnoreCase("[bar]"))
+								bars.add(block.getLocation());
+							break;
+
+						default:
+							break;
+					}
+				});
+			}
+		}.runTaskLater(plugin, 10L);
             
     	int limit = 50 + size * 20;
     	
@@ -76,15 +85,27 @@ public class MapManager {
             enderchests.add(random);
             random.getBlock().setType(Material.ENDER_CHEST);
         }
-        
-        lamps.forEach(lamp -> lamp.getBlock().setType(Material.WHITE_WOOL));
-        bars.forEach(bar -> bar.getBlock().setType(Material.AIR));
-        
-    	map.getWorld().getEntities().forEach(entity -> {
-    		if(entity instanceof Item)
-    			entity.remove();
-    	});
-        
+
+
+		new BukkitRunnable() {
+			@Override
+			public void run() {
+				lamps.forEach(location -> {
+					lamps.forEach(lamp -> lamp.getBlock().setType(Material.WHITE_WOOL));
+					bars.forEach(bar -> bar.getBlock().setType(Material.AIR));
+				});
+			}
+		}.runTaskLater(plugin, 10L);
+
+        new BukkitRunnable() {
+			@Override
+			public void run() {
+				map.getWorld().getEntities().forEach(entity -> {
+					if (entity instanceof Item)
+						entity.remove();
+				});
+			}
+		}.runTaskLater(plugin, 10L);
         refill();
     }
     
