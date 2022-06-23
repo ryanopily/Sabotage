@@ -204,7 +204,7 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 	 * @param sender - The player who initiated the command.
 	 */
 	public static void refill(CommandSender sender) {
-		if(sabotage.getCurrent_state() == Sabotage.COLLECTION) {
+		if(sabotage.getCurrent_state() != Sabotage.LOBBY) {
 			sabotage.getCollection().getMapManager().refill();
 			sender.sendMessage(Sprink.color("&aChests refilled."));
 		}
