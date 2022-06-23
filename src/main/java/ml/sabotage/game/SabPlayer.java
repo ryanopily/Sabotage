@@ -71,11 +71,9 @@ public class SabPlayer {
         return config.wrong_deaths;
     }
 
-
     public void resetKarma(){
         config.karma = 200;
         config.lifetime = 200;
         updateKarma();
     }
-
 }

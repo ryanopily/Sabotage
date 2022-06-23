@@ -68,7 +68,7 @@ public class Innocent extends IngamePlayer {
 
         double currentHealth = player.getHealth();
         if(currentHealth >= 10) {
-            player.sendMessage(Sprink.color("&cYou're health is too high!"));
+            player.sendMessage(Sprink.color("&cYour health is too high!"));
         }else{
             player.setHealth(Math.random() * 4 + 8);
             player.sendMessage(Sprink.color("&aYou just bought Second Wind!"));

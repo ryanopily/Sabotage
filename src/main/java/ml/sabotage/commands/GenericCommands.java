@@ -1,7 +1,13 @@
 package ml.sabotage.commands;
 
 import static ml.sabotage.Main.sabotage;
-import static ml.sabotage.commands.Permissions.*;
+import static ml.sabotage.commands.Permissions.BUILD;
+import static ml.sabotage.commands.Permissions.DEFAULT;
+import static ml.sabotage.commands.Permissions.SAB_PAUSE;
+import static ml.sabotage.commands.Permissions.SAB_RESURRECT;
+import static ml.sabotage.commands.Permissions.SAB_START;
+import static ml.sabotage.commands.Permissions.SAB_STOP;
+import static ml.sabotage.commands.Permissions.SAB_TEST;
 
 import java.util.Arrays;
 import java.util.List;
@@ -24,7 +30,6 @@ import ml.sabotage.config.PlayerData;
 import ml.sabotage.game.stages.Ingame;
 import ml.sabotage.game.stages.Sabotage;
 import ml.zer0dasho.plumber.utils.Sprink;
-import org.jetbrains.annotations.NotNull;
 
 public class GenericCommands implements CommandExecutor, TabCompleter {
 
@@ -105,7 +110,7 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 			DEFAULT, DEFAULT, DEFAULT, DEFAULT, SAB_START, SAB_STOP, SAB_TEST, SAB_TEST, SAB_PAUSE, BUILD, SAB_RESURRECT);
 	
 	@Override
-	public List<String> onTabComplete(CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
 		String cmd = String.join(" ", args);
 		List<String> result = Lists.newArrayList();
 		
@@ -178,8 +183,19 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 	 * @param sender - The player who initiated the command.
 	 */
 	public static void stop(CommandSender sender) {
-		sabotage.endIngame();
-		sender.sendMessage(Sprink.color("&aGame ended!"));
+		
+		if(sabotage.getCurrent_state() == Sabotage.LOBBY) {
+			sender.sendMessage(Sprink.color("&cYou're already in the lobby!"));
+			return;
+		}
+		
+		if(sabotage.getCurrent_state() == Sabotage.COLLECTION)
+			sabotage.endCollection();
+		
+		if(sabotage.getCurrent_state() == Sabotage.INGAME)
+			sabotage.endIngame();
+		
+		sender.sendMessage(Sprink.color("&aGame ended."));
 	}
 
 	/**
@@ -188,8 +204,12 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 	 * @param sender - The player who initiated the command.
 	 */
 	public static void refill(CommandSender sender) {
-		sabotage.getCollection().getMapManager().refill();
-		sender.sendMessage(Sprink.color("&cChests refilled."));
+		if(sabotage.getCurrent_state() == Sabotage.COLLECTION) {
+			sabotage.getCollection().getMapManager().refill();
+			sender.sendMessage(Sprink.color("&aChests refilled."));
+		}
+		else 
+			sender.sendMessage(Sprink.color("&c"));
 	}
 
 	/**

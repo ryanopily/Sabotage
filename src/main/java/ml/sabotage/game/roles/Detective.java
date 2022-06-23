@@ -2,7 +2,6 @@ package ml.sabotage.game.roles;
 
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -10,12 +9,12 @@ import ml.sabotage.Main;
 import ml.sabotage.config.ConfigSettings.Karma;
 import ml.sabotage.game.SabPlayer;
 import ml.zer0dasho.plumber.utils.Sprink;
-
-import java.util.Arrays;
+import ml.zer0dasho.plumber.utils.builders.ItemBuilder;
 
 public class Detective extends IngamePlayer {
 	
     public boolean insight;
+    public int insight_limit = 3;
 
     public Detective(SabPlayer sabPlayer) {
         super(sabPlayer);
@@ -62,20 +61,21 @@ public class Detective extends IngamePlayer {
         
         if(insight)
         	player.sendMessage(Sprink.color("&cYou already have insight..."));
+        else if (insight_limit <= 0)
+        	player.sendMessage(Sprink.color("&cYou can't buy any more insight..."));
         else {
         	player.sendMessage(Sprink.color("&aYou just bought Insight!"));
             sabPlayer.addKarma(-60);
         	insight = true;
+        	insight_limit--;
         }
     }
 
-    public ItemStack GenerateForceps(){
-        ItemStack FORCEPS = new ItemStack(Material.SHEARS);
-        ItemMeta meta = FORCEPS.getItemMeta();
-        meta.setDisplayName(Sprink.color("&a&lForceps"));
-        meta.setLore(Arrays.asList(Sprink.color("&aRightclick a corpse to check player's role.")));
-        FORCEPS.setItemMeta(meta);
-        return FORCEPS;
+    private ItemStack GenerateForceps(){
+    	return new ItemBuilder(Material.SHEARS)
+    		.displayName("&a&lForceps")
+    		.lore("&aRightclick a corpse to check player's role")
+    		.create(true);
     }
 
 	@Override

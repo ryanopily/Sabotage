@@ -154,6 +154,7 @@ public class PlayerManager {
         	if(detective == null) {
         		detective = resurrect(assignment, Detective::new);
         		detective.sendRoleMessage(detective);
+        		detective.insight_limit = Math.min((players.size() - 3), 3);
         	} 
         	
         	else if(neededSaboteurs > 0) {
