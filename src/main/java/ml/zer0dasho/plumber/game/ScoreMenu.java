@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.bukkit.Bukkit;
 import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.NameTagVisibility;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
@@ -93,7 +92,7 @@ public class ScoreMenu {
 		   	 if(suffix != null) 	  team.setSuffix(Sprink.color(suffix));
 			 if(seeInvis != null) 	  {
 				  team.setCanSeeFriendlyInvisibles(seeInvis);
-				  team.setOption(Team.Option.NAME_TAG_VISIBILITY, seeInvis ? Team.OptionStatus.ALWAYS : Team.OptionStatus.NEVER);
+				  // team.setOption(Team.Option.NAME_TAG_VISIBILITY, seeInvis ? Team.OptionStatus.ALWAYS : Team.OptionStatus.NEVER);
 			 }
 			 if(friendlyFire != null) team.setAllowFriendlyFire(friendlyFire);
 
