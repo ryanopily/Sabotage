@@ -261,7 +261,6 @@ public class Ingame implements Listener {
 	    	
     		/* Player died */
     		if(p.getHealth() - e.getFinalDamage() <= 0) {
-	    		e.setCancelled(true);
 	    		p.setHealth(20.0);
 	        	sabotage.broadcastAll(Sprink.color("&cA player has died... " + (playerManager.players(true).size() - 1) + " players remain."));
 	        	kill2(p);
@@ -325,21 +324,15 @@ public class Ingame implements Listener {
     
     @EventHandler
     public void onPlayerHit(EntityDamageByEntityEvent e) { 
-    	if(!sabotage.players.contains(e.getEntity().getUniqueId()))
+    	if(!sabotage.players.contains(e.getEntity().getUniqueId()) || !this.playerManager.isAlive(e.getEntity().getUniqueId()))
     		return;
     	
     	IngamePlayer damager = playerManager.getRole(e.getDamager().getUniqueId());
-    	
-		if(!this.playerManager.isAlive(e.getEntity().getUniqueId()))
-			return;
-		
-		if(damager == null || !this.playerManager.isAlive(damager.player.getUniqueId())) {
-			e.setCancelled(true);
-			return;
+
+		if(damager != null && this.playerManager.isAlive(damager.player.getUniqueId())) {
+		    double result = damager.blood < 2.0 ? 0.2 : 0.0;
+	        damager.blood += result;
 		}
-        
-        double result = damager.blood < 2.0 ? 0.2 : 0.0;
-        damager.blood += result;
     }
     
     @EventHandler
@@ -467,7 +460,7 @@ public class Ingame implements Listener {
 			return;
 		
         IngamePlayer victim = playerManager.getRole(dead.getUniqueId());
-        IngamePlayer killer = dead.getKiller() == null ? null : playerManager.getRole(dead.getKiller().getUniqueId());
+        IngamePlayer killer = dead.getLastDamageCause().getEntity() == null ? null : playerManager.getRole(dead.getLastDamageCause().getEntity().getUniqueId());
         
         if(victim != null) {
         	Location deathbed = victim.player.getLocation();
