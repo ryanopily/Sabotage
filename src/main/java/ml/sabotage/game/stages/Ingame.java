@@ -460,7 +460,7 @@ public class Ingame implements Listener {
 			return;
 		
         IngamePlayer victim = playerManager.getRole(dead.getUniqueId());
-        IngamePlayer killer = dead.getLastDamageCause().getEntity() == null ? null : playerManager.getRole(dead.getLastDamageCause().getEntity().getUniqueId());
+        IngamePlayer killer = dead.getKiller() == null ? null : playerManager.getRole(dead.getKiller().getUniqueId());
         
         if(victim != null) {
         	Location deathbed = victim.player.getLocation();
