@@ -24,6 +24,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scoreboard.Team;
 
 import ml.sabotage.Main;
 import ml.sabotage.commands.GenericCommands;
@@ -182,26 +183,29 @@ public class Ingame implements Listener {
     private void initScoreboard() {
     	playerManager.innocents(false).stream().forEach(igp -> {
     		GUI.addPlayer(igp);
-    		GUI.getInnocent().getTeam("Innocent").addEntry(igp.player.getName());
-    		GUI.getSaboteur().getTeam("Innocent").addEntry(igp.player.getName());
-    		GUI.getDetective().getTeam("Innocent").addEntry(igp.player.getName());
-    		GUI.getSpectator().getTeam("Else").addEntry(igp.player.getName());
+    		//System.out.println(igp.player.getDisplayName());
+    		GUI.getInnocent().getTeam("Innocent").addPlayer(igp.player);
+    		GUI.getSaboteur().getTeam("Innocent").addPlayer(igp.player);
+    		GUI.getDetective().getTeam("Innocent").addPlayer(igp.player);
+    		GUI.getSpectator().getTeam("Else").addPlayer(igp.player);
     	});
     	
     	playerManager.saboteurs(false).stream().forEach(igp -> {
     		GUI.addPlayer(igp);
-    		GUI.getInnocent().getTeam("Innocent").addEntry(igp.player.getName());
-    		GUI.getSaboteur().getTeam("Saboteur").addEntry(igp.player.getName());
-    		GUI.getDetective().getTeam("Innocent").addEntry(igp.player.getName());
-    		GUI.getSpectator().getTeam("Else").addEntry(igp.player.getName());
+    		//System.out.println(igp.player.getDisplayName());
+    		GUI.getInnocent().getTeam("Innocent").addPlayer(igp.player);
+    		GUI.getSaboteur().getTeam("Saboteur").addPlayer(igp.player);
+    		GUI.getDetective().getTeam("Innocent").addPlayer(igp.player);
+    		GUI.getSpectator().getTeam("Else").addPlayer(igp.player);
        	});
    
     	if(playerManager.getDetective() != null) {
 	    	GUI.addPlayer(playerManager.getDetective());
-			GUI.getInnocent().getTeam("Detective").addEntry(playerManager.getDetective().player.getName());
-			GUI.getSaboteur().getTeam("Detective").addEntry(playerManager.getDetective().player.getName());
-			GUI.getDetective().getTeam("Detective").addEntry(playerManager.getDetective().player.getName());
-			GUI.getSpectator().getTeam("Detective").addEntry(playerManager.getDetective().player.getName());
+	    	//System.out.println(playerManager.getDetective().player.getDisplayName());
+			GUI.getInnocent().getTeam("Detective").addPlayer(playerManager.getDetective().player);
+			GUI.getSaboteur().getTeam("Detective").addPlayer(playerManager.getDetective().player);
+			GUI.getDetective().getTeam("Detective").addPlayer(playerManager.getDetective().player);
+			GUI.getSpectator().getTeam("Detective").addPlayer(playerManager.getDetective().player);
     	}
     }
     

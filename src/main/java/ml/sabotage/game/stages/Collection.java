@@ -1,7 +1,6 @@
 package ml.sabotage.game.stages;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
@@ -20,6 +19,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import com.google.common.collect.Sets;
 
@@ -35,7 +35,6 @@ import ml.zer0dasho.plumber.game.Timer;
 import ml.zer0dasho.plumber.game.arena.IArena;
 import ml.zer0dasho.plumber.utils.Sprink;
 import ml.zer0dasho.plumber.utils.Trycat;
-import org.bukkit.inventory.meta.ItemMeta;
 
 public class Collection implements Listener {
 	

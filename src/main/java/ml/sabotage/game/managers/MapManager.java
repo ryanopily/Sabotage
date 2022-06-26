@@ -81,12 +81,12 @@ public class MapManager {
 		        	Location random = Sprink.randomElement(chests, true);
 		            enderchests.add(random);
 		            random.getBlock().setType(Material.ENDER_CHEST);
-		            
-		            lamps.forEach(location -> {
-						lamps.forEach(lamp -> lamp.getBlock().setType(Material.WHITE_WOOL));
-						bars.forEach(bar -> bar.getBlock().setType(Material.AIR));
-					});
 		        }
+		        
+	            lamps.forEach(location -> {
+					lamps.forEach(lamp -> lamp.getBlock().setType(Material.WHITE_WOOL));
+					bars.forEach(bar -> bar.getBlock().setType(Material.AIR));
+				});
 
 		        refill();
 			}

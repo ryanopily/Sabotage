@@ -4,6 +4,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Score;
@@ -67,7 +68,7 @@ public class ScoreMenu {
 	 * @return ScoreMenu
 	 */
 	public ScoreMenu newTeam(String displayName, String prefix, String suffix) {
-		return newTeam(displayName, prefix, suffix, null, null);
+		return newTeam(displayName, null, prefix, suffix, null, null);
 	}
 	
 	/**
@@ -81,16 +82,17 @@ public class ScoreMenu {
 	 * @param friendlyFire - Allow players on the same team to kill each other
 	 * @return ScoreMenu
 	 */
-	public ScoreMenu newTeam(String displayName, String prefix, String suffix, Boolean seeInvis, Boolean friendlyFire) {
+	public ScoreMenu newTeam(String displayName, ChatColor color, String prefix, String suffix, Boolean seeInvis, Boolean friendlyFire) {
 		
 		// Overwrite old teams
 		Optional.ofNullable(teams.get(displayName)).ifPresent(Team::unregister);
 		
 		Team team = scoreboard.registerNewTeam(displayName);
 			 team.setDisplayName(displayName);
-			 if(prefix != null) 	  team.setPrefix(Sprink.color(prefix));
-		   	 if(suffix != null) 	  team.setSuffix(Sprink.color(suffix));
-			 if(seeInvis != null) 	  {
+			 if(prefix != null) team.setPrefix(Sprink.color(prefix));
+		   	 if(suffix != null) team.setSuffix(Sprink.color(suffix));
+		   	 if(color != null) team.setColor(color);
+			 if(seeInvis != null) {
 				  team.setCanSeeFriendlyInvisibles(seeInvis);
 				  // team.setOption(Team.Option.NAME_TAG_VISIBILITY, seeInvis ? Team.OptionStatus.ALWAYS : Team.OptionStatus.NEVER);
 			 }

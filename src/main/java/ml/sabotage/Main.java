@@ -1,5 +1,6 @@
 package ml.sabotage;
 
+import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -44,6 +45,9 @@ public class Main extends JavaPlugin {
     public void onEnable() {    
     	Main.plugin = this;  
         Main.config = ConfigSettings.load();
+        
+        new File(DATA_FOLDER + "/players").mkdirs();
+        new File(DATA_FOLDER + "/worlds").mkdirs();
         
 		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
 			Main.plugin.getLogger().log(Level.INFO, "PlaceholderAPI found, enabling Placeholders!");

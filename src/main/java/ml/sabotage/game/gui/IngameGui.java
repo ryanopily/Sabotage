@@ -10,7 +10,7 @@ import ml.sabotage.game.roles.Saboteur;
 import ml.zer0dasho.plumber.game.ScoreMenu;
 import ml.zer0dasho.plumber.game.Timer;
 import ml.zer0dasho.plumber.utils.Sprink;
-import net.md_5.bungee.api.ChatColor;
+import org.bukkit.ChatColor;
 
 public class IngameGui {
 
@@ -21,21 +21,21 @@ public class IngameGui {
 		this.timer = timer;
 		
 		this.innocent = getMenu("&aInnocent");
-		innocent.newTeam("Innocent", ChatColor.YELLOW + "", "", false, true);
-		innocent.newTeam("Detective", ChatColor.BLUE + "", "", false, true);
+		innocent.newTeam("Innocent", ChatColor.YELLOW, "", "", false, true);
+		innocent.newTeam("Detective", ChatColor.BLUE, "", "", false, true);
 		
 		this.saboteur = getMenu("&cSaboteur");
-		saboteur.newTeam("Innocent", ChatColor.GREEN + "", "", false, true);
-		saboteur.newTeam("Saboteur", ChatColor.RED + "", "", false, true);
-		saboteur.newTeam("Detective", ChatColor.BLUE + "", "", false, true);
+		saboteur.newTeam("Innocent", ChatColor.GREEN, "", "", false, true);
+		saboteur.newTeam("Saboteur", ChatColor.RED, "", "", false, true);
+		saboteur.newTeam("Detective", ChatColor.BLUE, "", "", false, true);
 		
 		this.detective = getMenu("&9Detective");
-		detective.newTeam("Innocent", ChatColor.YELLOW + "", "", false, true);
-		detective.newTeam("Detective", ChatColor.BLUE + "", "", false, true);
+		detective.newTeam("Innocent", ChatColor.YELLOW, "", "", false, true);
+		detective.newTeam("Detective", ChatColor.BLUE, "", "", false, true);
 		
 		this.spectator = getMenu("&dSpectator");
-		spectator.newTeam("Detective", ChatColor.BLUE + "", "", false, true);
-		spectator.newTeam("Else", ChatColor.YELLOW + "", "", false, true);
+		spectator.newTeam("Detective", ChatColor.BLUE, "", "", false, true);
+		spectator.newTeam("Else", ChatColor.YELLOW, "", "", false, true);
 	}
 	
 	public void update() {
