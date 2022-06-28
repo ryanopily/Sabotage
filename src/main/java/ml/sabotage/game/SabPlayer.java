@@ -76,4 +76,8 @@ public class SabPlayer {
         config.lifetime = 200;
         updateKarma();
     }
+    public void setKarma(int karma) {
+        config.karma = karma;
+        updateKarma();
+    }
 }

@@ -5,7 +5,7 @@ api-version: 1.13
 
 authors: ["0-o#9646", "AkiraDev"]
 
-softdepend: [PlaceholderAPI]
+softdepend: [PlaceholderAPI, DiscordSRV]
 depend: [Config, CorpseImmortal]
 
 commands:
@@ -21,9 +21,14 @@ commands:
     shop:
         description: Buy in-game shop items.
         permission: zerodasho.sabotage.shop
+    karma:
+        description: Base    for karma commands.
+        permission: zerodasho.sabotage.karma
         
 permissions:
     zerodasho.sabotage.sabmap:
+        default: op
+    zerodasho.sabotage.karma:
         default: op
     zerodasho.sabotage.vote:
         default: true
