@@ -292,5 +292,10 @@ corpse_tester:
     minutes: 0
     seconds: 10
     reload: 0
+mirror_illusion:
+    hours: 0
+    minutes: 0
+    seconds: 30
+    reload: 0
 test_corpse_range: 10
 max_panic_blocks: 5

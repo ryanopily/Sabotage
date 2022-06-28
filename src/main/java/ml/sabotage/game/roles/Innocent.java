@@ -1,5 +1,6 @@
 package ml.sabotage.game.roles;
 
+import ml.sabotage.game.tasks.Illusion;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -9,11 +10,10 @@ import ml.sabotage.game.SabPlayer;
 import ml.zer0dasho.plumber.utils.Sprink;
 
 public class Innocent extends IngamePlayer {
-	
+
     public Innocent(SabPlayer sabPlayer) {
         super(sabPlayer);
     }
-    
     @Override
     public void sendRoleMessage(Detective detective) {
         player.sendMessage(Sprink.color("&6You are an &a&lInnocent &r&6 this game!"));
@@ -74,6 +74,19 @@ public class Innocent extends IngamePlayer {
             player.sendMessage(Sprink.color("&aYou just bought Second Wind!"));
             sabPlayer.addKarma(-60);
         }
+    }
+
+    @SHOP
+    public void Mirror_Illusion() {
+        if(!hasKarma(100)) return;
+
+        for(SabPlayer p : Main.SAB_PLAYERS.values()) {
+            if(Main.sabotage.getIngame().getPlayerManager().getRole(p.player.getUniqueId()) != null ) {
+                new Illusion(p.player).runTaskTimer(Main.plugin, 0L, 20L);
+            }
+        }
+        player.sendMessage(Sprink.color("&aYou just bought Mirror Illusion!"));
+        sabPlayer.addKarma(-100);
     }
 
 	@Override

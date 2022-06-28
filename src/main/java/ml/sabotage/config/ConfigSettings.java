@@ -43,7 +43,8 @@ public class ConfigSettings extends Config {
 				ingame = new Time(), 
 				panic_life = new Time(),
 				collection = new Time(), 
-				corpse_tester = new Time();
+				corpse_tester = new Time(),
+				mirror_illusion = new Time();
 	
 	public int test_corpse_range = 10, max_panic_blocks = 5;
 	

@@ -1,6 +1,5 @@
 package ml.sabotage.game.stages;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -100,9 +99,9 @@ public class Ingame implements Listener {
     
     /**
      * Returns all innocents including detectives.
-     * 
-     * @return
-     */
+     *
+     * @return List<IngamePlayer>
+	 */
     public List<IngamePlayer> innocents() {
     	List<IngamePlayer> innocents = playerManager.innocents(true);
     	innocents.addAll(playerManager.detectives(true));
@@ -184,6 +183,11 @@ public class Ingame implements Listener {
     	playerManager.innocents(false).stream().forEach(igp -> {
     		GUI.addPlayer(igp);
     		//System.out.println(igp.player.getDisplayName());
+			//GUI.getInnocent().getTeam("Innocents").addEntry(igp.player.getName());
+			//GUI.getSaboteur().getTeam("Innocents").addEntry(igp.player.getName());
+			//GUI.getDetective().getTeam("Innocents").addEntry(igp.player.getName());
+			//GUI.getSpectator().getTeam("Else").addEntry(igp.player.getName());
+
     		GUI.getInnocent().getTeam("Innocent").addPlayer(igp.player);
     		GUI.getSaboteur().getTeam("Innocent").addPlayer(igp.player);
     		GUI.getDetective().getTeam("Innocent").addPlayer(igp.player);
@@ -193,6 +197,10 @@ public class Ingame implements Listener {
     	playerManager.saboteurs(false).stream().forEach(igp -> {
     		GUI.addPlayer(igp);
     		//System.out.println(igp.player.getDisplayName());
+			//GUI.getInnocent().getTeam("Innocent").addEntry(igp.player.getName());
+			//GUI.getSaboteur().getTeam("Saboteur").addEntry(igp.player.getName());
+			//GUI.getDetective().getTeam("Innocent").addEntry(igp.player.getName());
+			//GUI.getSpectator().getTeam("Else").addEntry(igp.player.getName());
     		GUI.getInnocent().getTeam("Innocent").addPlayer(igp.player);
     		GUI.getSaboteur().getTeam("Saboteur").addPlayer(igp.player);
     		GUI.getDetective().getTeam("Innocent").addPlayer(igp.player);
@@ -202,6 +210,10 @@ public class Ingame implements Listener {
     	if(playerManager.getDetective() != null) {
 	    	GUI.addPlayer(playerManager.getDetective());
 	    	//System.out.println(playerManager.getDetective().player.getDisplayName());
+			//GUI.getInnocent().getTeam("Detective").addEntry(playerManager.getDetective().player.getName());
+			//GUI.getSaboteur().getTeam("Detective").addEntry(playerManager.getDetective().player.getName());
+			//GUI.getDetective().getTeam("Detective").addEntry(playerManager.getDetective().player.getName());
+			//GUI.getSpectator().getTeam("Detective").addEntry(playerManager.getDetective().player.getName());
 			GUI.getInnocent().getTeam("Detective").addPlayer(playerManager.getDetective().player);
 			GUI.getSaboteur().getTeam("Detective").addPlayer(playerManager.getDetective().player);
 			GUI.getDetective().getTeam("Detective").addPlayer(playerManager.getDetective().player);
@@ -392,7 +404,7 @@ public class Ingame implements Listener {
     	
     	//IF PLAYER IS DEAD
     	if(!playerManager.isAlive(e.getPlayer().getUniqueId())) { 
-    		List<Player> players = new ArrayList<Player>(playerManager.dead().keySet().stream().map(Bukkit::getPlayer).collect(Collectors.toList()));
+    		List<Player> players = playerManager.dead().keySet().stream().map(Bukkit::getPlayer).collect(Collectors.toList());
     		e.getRecipients().clear();
     		e.getRecipients().addAll(players);
     		e.setFormat(Sprink.color("&4[Dead] &7" + e.getPlayer().getDisplayName() + " &f" + e.getMessage()));
@@ -424,12 +436,12 @@ public class Ingame implements Listener {
         for(IngamePlayer igp : playerManager.players(true)) {	
         	Player player = igp.player;
         	
-            if(player.equals(e.getPlayer())) 
-            	continue;
+            if(player.equals(e.getPlayer())) {
+			}
             else if(target == null) 
             	target = player;
-            else if(target.getLocation().distance(tracker.player.getLocation()) <= player.getPlayer().getLocation().distance(tracker.player.getLocation())) 
-            		continue;
+            else if(target.getLocation().distance(tracker.player.getLocation()) <= player.getPlayer().getLocation().distance(tracker.player.getLocation())) {
+			}
             else 
             	target = player;
         }
