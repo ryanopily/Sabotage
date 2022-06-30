@@ -1,6 +1,8 @@
 package ml.sabotage.utils;
 
 import net.citizensnpcs.api.CitizensAPI;
+import net.citizensnpcs.api.ai.goals.WanderGoal;
+import net.citizensnpcs.api.event.SpawnReason;
 import net.citizensnpcs.api.npc.MemoryNPCDataStore;
 import net.citizensnpcs.api.npc.NPC;
 import net.citizensnpcs.api.npc.NPCRegistry;
@@ -11,6 +13,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.util.Vector;
 
 public class NPCManager {
 
@@ -29,7 +32,11 @@ public class NPCManager {
         npc.getOrAddTrait(Equipment.class).set(Equipment.EquipmentSlot.LEGGINGS, leggings);
         npc.getOrAddTrait(Equipment.class).set(Equipment.EquipmentSlot.BOOTS, boots);
         npc.getOrAddTrait(Equipment.class).set(Equipment.EquipmentSlot.HAND, currentItem);
-        npc.spawn(location);
+        WanderGoal runaround = WanderGoal.builder(npc).xrange(30).build();
+        npc.getDefaultGoalController().addGoal(runaround, 1);
+        npc.getNavigator().getLocalParameters().speedModifier(0.5f);
+
+        npc.spawn(location, SpawnReason.PLUGIN);
 
         return npc;
     }
