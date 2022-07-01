@@ -81,7 +81,7 @@ public class Innocent extends IngamePlayer {
         if(!hasKarma(100)) return;
 
         for(SabPlayer p : Main.SAB_PLAYERS.values()) {
-            if(Main.sabotage.getIngame().getPlayerManager().getRole(p.player.getUniqueId()) != null ) {
+            if(Main.sabotage.getIngame().getPlayerManager().isAlive(player.getUniqueId())) {
                 new Illusion(p.player).runTaskTimer(Main.plugin, 0L, 20L);
             }
         }

@@ -13,7 +13,8 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.Vector;
+import org.mcmonkey.sentinel.SentinelTrait;
+import org.mcmonkey.sentinel.integration.SentinelHealth;
 
 public class NPCManager {
 
@@ -26,16 +27,19 @@ public class NPCManager {
         ItemStack leggings = player.getEquipment().getLeggings();
         ItemStack boots = player.getEquipment().getBoots();
         ItemStack currentItem = player.getEquipment().getItem(EquipmentSlot.HAND);
+
         NPC npc = registry.createNPC(EntityType.PLAYER, playerName);
+
         npc.getOrAddTrait(Equipment.class).set(Equipment.EquipmentSlot.HELMET, helmet);
         npc.getOrAddTrait(Equipment.class).set(Equipment.EquipmentSlot.CHESTPLATE, chestplate);
         npc.getOrAddTrait(Equipment.class).set(Equipment.EquipmentSlot.LEGGINGS, leggings);
         npc.getOrAddTrait(Equipment.class).set(Equipment.EquipmentSlot.BOOTS, boots);
         npc.getOrAddTrait(Equipment.class).set(Equipment.EquipmentSlot.HAND, currentItem);
+        
+        npc.getOrAddTrait(SentinelTrait.class);
         WanderGoal runaround = WanderGoal.builder(npc).xrange(30).build();
         npc.getDefaultGoalController().addGoal(runaround, 1);
-        npc.getNavigator().getLocalParameters().speedModifier(0.5f);
-
+        npc.getNavigator().getDefaultParameters().baseSpeed(1.5f).stuckAction(null);
         npc.spawn(location, SpawnReason.PLUGIN);
 
         return npc;
