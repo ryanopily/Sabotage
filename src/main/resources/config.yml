@@ -299,3 +299,5 @@ mirror_illusion:
     reload: 0
 test_corpse_range: 10
 max_panic_blocks: 5
+karma_ban_threshold: 0
+karma_ban_command: "ban %player% Karma threshold reached 1w"

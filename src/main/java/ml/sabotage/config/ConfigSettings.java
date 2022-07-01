@@ -28,7 +28,8 @@ public class ConfigSettings extends Config {
 	}
 	
 	public String hub = "hub";
-	
+	public String karma_ban_command = "ban %player% Karma threshold reached (%karma%) 1w";
+	public int karma_ban_threshold = 0;
 	public List<Item> items = Lists.newArrayList();
 	public List<Item> special_items = Lists.newArrayList();
 	public List<String> maps = Lists.newArrayList();
