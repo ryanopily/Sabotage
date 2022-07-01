@@ -79,6 +79,7 @@ public class Lobby implements Listener {
     	VoteCommand.resetMapSelection();
 
 		this.hub = new SabArena(Main.config.hub);
+		Main.CurrentMap = "Lobby";
     	sabotage.players.forEach(this::add);
     	
        	Trycat.Try(() -> sabotage.collection.map.delete(this.hub.getWorld()), (e) -> {});

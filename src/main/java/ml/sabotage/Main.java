@@ -26,7 +26,7 @@ public class Main extends JavaPlugin {
 	public static Main plugin;
 	public static Sabotage sabotage;
 	public static ConfigSettings config;
-    
+    public static String CurrentMap;
     public static final List<IArena> ACTIVE_ARENAS = Lists.newArrayList();
 	public static final Map<UUID, SabPlayer> SAB_PLAYERS = Maps.newHashMap();
 	

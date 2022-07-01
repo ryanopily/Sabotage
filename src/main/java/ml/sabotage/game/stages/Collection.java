@@ -85,6 +85,7 @@ public class Collection implements Listener {
 		Set<UUID> players = sabotage.lobby.players;
 		
 		this.map = new SabArena(VoteCommand.getMap());
+		Main.CurrentMap = map.getWorld().getName();
 		this.mapManager = new MapManager(map, players.size());
 		players.forEach(this::add);
 		
