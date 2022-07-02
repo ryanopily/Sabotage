@@ -4,6 +4,7 @@
   	<groupId>ml.sabotage</groupId>
  	<artifactId>sabotage</artifactId>
  	<version>1.0.1</version>
+	<packaging>jar</packaging>
 
 	<properties>
 	     <maven.compiler.source>1.8</maven.compiler.source>
