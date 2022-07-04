@@ -1,5 +1,7 @@
 package ml.sabotage.game;
 
+import ml.sabotage.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import ml.sabotage.commands.GenericCommands;
@@ -16,6 +18,13 @@ public class SabPlayer {
     }
 
     public void updateKarma() {
+        if(config.karma <= Main.config.karma_ban_threshold) {
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(),
+                    Main.config.karma_ban_command
+                            .replace("%player%", player.getName()));
+            config.karma = 200;
+            return;
+        }
         player.setExp(0.0f);
         player.setLevel(config.karma);
     }
@@ -74,6 +83,10 @@ public class SabPlayer {
     public void resetKarma(){
         config.karma = 200;
         config.lifetime = 200;
+        updateKarma();
+    }
+    public void setKarma(int karma) {
+        config.karma = karma;
         updateKarma();
     }
 }

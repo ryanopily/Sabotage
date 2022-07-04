@@ -3,6 +3,8 @@ package ml.sabotage.utils;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import ml.sabotage.Main;
 import ml.sabotage.game.SabPlayer;
+import ml.sabotage.game.stages.Collection;
+import ml.sabotage.game.stages.Ingame;
 import org.bukkit.OfflinePlayer;
 import org.jetbrains.annotations.NotNull;
 
@@ -71,6 +73,9 @@ public class PlaceholderManager extends PlaceholderExpansion {
         }
         if(params.equalsIgnoreCase("deaths_wrong")){
             return String.valueOf(sabPlayer.getWrongDeaths());
+        }
+        if(params.equalsIgnoreCase("map")){
+            return Main.CurrentMap;
         }
         return null; // Placeholder is unknown by the Expansion
     }

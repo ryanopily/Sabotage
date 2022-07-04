@@ -28,7 +28,8 @@ public class ConfigSettings extends Config {
 	}
 	
 	public String hub = "hub";
-	
+	public String karma_ban_command = "ban %player% Karma threshold reached (%karma%) 1w";
+	public int karma_ban_threshold = 0;
 	public List<Item> items = Lists.newArrayList();
 	public List<Item> special_items = Lists.newArrayList();
 	public List<String> maps = Lists.newArrayList();
@@ -43,7 +44,8 @@ public class ConfigSettings extends Config {
 				ingame = new Time(), 
 				panic_life = new Time(),
 				collection = new Time(), 
-				corpse_tester = new Time();
+				corpse_tester = new Time(),
+				mirror_illusion = new Time();
 	
 	public int test_corpse_range = 10, max_panic_blocks = 5;
 	

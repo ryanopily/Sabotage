@@ -14,10 +14,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
-import ml.sabotage.commands.GenericCommands;
-import ml.sabotage.commands.SabMapCommand;
-import ml.sabotage.commands.ShopCommand;
-import ml.sabotage.commands.VoteCommand;
+import ml.sabotage.commands.*;
 import ml.sabotage.config.ConfigSettings;
 import ml.sabotage.game.SabPlayer;
 import ml.sabotage.game.stages.Sabotage;
@@ -32,6 +29,8 @@ public class Main extends JavaPlugin {
 
 	public static final String PLUGIN_NAME = "SABOTAGE";
     public static final String DATA_FOLDER = "plugins/Sabotage"; 
+    public static String CurrentMap;
+
     public static final List<IArena> ACTIVE_ARENAS = Lists.newArrayList();
 	public static final Map<UUID, SabPlayer> SAB_PLAYERS = Maps.newHashMap();
     
@@ -72,5 +71,6 @@ public class Main extends JavaPlugin {
     	new SabMapCommand();
     	new ShopCommand();
     	new VoteCommand();
+		new KarmaCommands();
     }
 }

@@ -9,7 +9,7 @@ public class Permissions {
 		SAB_STOP      = "zerodasho.sabotage.generic.stop",
 		SAB_TEST      = "zerodasho.sabotage.generic.test",
 		SAB_RESURRECT = "zerodasho.sabotage.generic.resurrect",
-		
+
 		VOTE          = "zerodasho.sabotage.vote",
 		VOTE_RESET    = "zerodasho.sabotage.vote.reset",
 		
@@ -20,8 +20,11 @@ public class Permissions {
 		SABMAP_UNLOAD = "zer0dasho.sabotage.sabmap.unload",
 		SABMAP_SAVE   = "zer0dasho.sabotage.sabmap.save",
 
-		KARMA		 = "zerodasho.sabotage.karma",
-
+		KARMA		  = "zerodasho.sabotage.karma",
+		KARMA_ADD     = "zerodasho.sabotage.karma.add",
+		KARMA_SET     = "zerodasho.sabotage.karma.set",
+		KARMA_GET	  = "zerodasho.sabotage.karma.get",
+		KARMA_RESET	  = "zerodasho.sabotage.karma.reset",
 		CRAFT         = "zerodasho.sabotage.attributes.craft",
 		BUILD         = "zerodasho.sabotage.attributes.build",
 		NO_HUNGER     = "zerodasho.sabotage.attributes.nohunger",
