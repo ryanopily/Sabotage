@@ -102,7 +102,6 @@ public class GenericCommands implements CommandExecutor, TabCompleter {
 		return true;
 	}
 
-
 	private static final List<String> COMMANDS = Arrays.asList(
 			"info", "version", "join", "leave", "start", "stop", "test", "refill", "pause", "build", "resurrect");
 

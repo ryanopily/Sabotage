@@ -7,7 +7,6 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
@@ -15,12 +14,6 @@ import org.bukkit.metadata.FixedMetadataValue;
 import ml.sabotage.Main;
 
 public class SharedListener {
-
-    public static void droppedShears(PlayerDropItemEvent e) {
-        if(e.getItemDrop().getItemStack().getType().equals(Material.SHEARS)) 
-        	e.setCancelled(true);    
-    }
-    
     
     public static void rightClickBlock(PlayerInteractEvent e) {
     	if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
@@ -44,7 +37,6 @@ public class SharedListener {
     }
     
     public static void onBlockPlace(BlockPlaceEvent e) {
-    	
         switch(e.getBlock().getType()) {
 	        case TNT:
 	        	SharedListener.explode(e.getBlock());

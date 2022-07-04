@@ -2,7 +2,6 @@ name: Sabotage
 main: ml.sabotage.Main
 version: 1.0.0
 api-version: 1.13
-
 authors: ["0-o#9646", "AkiraDev"]
 
 softdepend: [PlaceholderAPI]

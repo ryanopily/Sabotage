@@ -29,12 +29,11 @@ public class Main extends JavaPlugin {
 	public static Main plugin;
 	public static Sabotage sabotage;
 	public static ConfigSettings config;
-    
+
+	public static final String PLUGIN_NAME = "SABOTAGE";
+    public static final String DATA_FOLDER = "plugins/Sabotage"; 
     public static final List<IArena> ACTIVE_ARENAS = Lists.newArrayList();
 	public static final Map<UUID, SabPlayer> SAB_PLAYERS = Maps.newHashMap();
-	
-    public static final String PLUGIN_NAME = "SABOTAGE";
-    public static final String DATA_FOLDER = "plugins/Sabotage"; 
     
     public static void disablePlugin(String reason) {
     	Main.plugin.getLogger().log(Level.SEVERE, reason);
@@ -46,9 +45,10 @@ public class Main extends JavaPlugin {
     	Main.plugin = this;  
         Main.config = ConfigSettings.load();
         
+
         new File(DATA_FOLDER + "/players").mkdirs();
         new File(DATA_FOLDER + "/worlds").mkdirs();
-        
+
 		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
 			Main.plugin.getLogger().log(Level.INFO, "PlaceholderAPI found, enabling Placeholders!");
 			new PlaceholderManager(this).register();

@@ -19,12 +19,14 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Team;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import ml.sabotage.Main;
 import ml.sabotage.commands.GenericCommands;
@@ -212,12 +214,15 @@ public class Ingame implements Listener {
     /* Events */
     
     @EventHandler
-    public void onSmite(SmiteEvent event) {
+    public void onSpawnSpectator(SmiteEvent event) {
     	Player player = event.getPlayer();
+
+		GUI.addSpectator(player);
     	player.setHealth(20.0);
-    	player.setGameMode(GameMode.SPECTATOR);
+		player.setGameMode(GameMode.SPECTATOR);
     	player.teleport(this.getWorld().getSpawnLocation());
-    	GUI.addSpectator(player);
+		Sprink.clearInventory(player, true);
+    
     }
     
     @EventHandler
@@ -229,6 +234,7 @@ public class Ingame implements Listener {
     	player.setHealth(20.0);
     	player.setGameMode(GameMode.SURVIVAL);
     	player.teleport(sabotage.collection.map.getWorld().getSpawnLocation());
+		Sprink.clearInventory(player, true);
     }
 
     @EventHandler
@@ -244,59 +250,104 @@ public class Ingame implements Listener {
     }
     
     @EventHandler
-    public void droppedShears(PlayerDropItemEvent e) {
-		if(!this.playerManager.getDetective().player.equals(e.getPlayer()))
-			return;
-		
-    	SharedListener.droppedShears(e);
+    public void onDetectiveDropShears(PlayerDropItemEvent e) {
+		if(this.playerManager.getDetective().player.equals(e.getPlayer())) {	
+			if(e.getItemDrop().getItemStack().getType().equals(Material.SHEARS)) 
+				e.setCancelled(true);    
+		}
     }
+
+	@EventHandler
+	public void onPlayerDeath(PlayerDeathEvent e) {
+		if(e.getEntity() instanceof Player && this.playerManager.isAlive(e.getEntity().getUniqueId())) {
+			final Player p = (Player) e.getEntity();
+			e.setDeathMessage("");
+
+			new BukkitRunnable() {
+				@Override
+				public void run() {
+					sabotage.broadcastAll(Sprink.color("&cA player has died..." + (playerManager.players(true).size() - 1) + " players remain."));
+					kill2(p);
+				}	
+			}.runTaskLater(Main.plugin, 10L);
+		}
+	}
     
     @EventHandler
-    public void onDamage(EntityDamageEvent e) {
-    	if(!sabotage.players.contains(e.getEntity().getUniqueId()))
-    		return;
-    	
-    	if(rewarded)
+    public void onPlayerTakeDamage(EntityDamageEvent e) {
+    	if(sabotage.players.contains(e.getEntity().getUniqueId()) && rewarded)
     		e.setCancelled(true);
     	
-    	else if(e.getEntity() instanceof Player && this.playerManager.isAlive(e.getEntity().getUniqueId())) {
+    	// else if(e.getEntity() instanceof Player && this.playerManager.isAlive(e.getEntity().getUniqueId())) {
     		
-    		Player p = (Player) e.getEntity();
+    	// 	Player p = (Player) e.getEntity();
 	    	
-    		/* Player died */
-    		if(p.getHealth() - e.getFinalDamage() <= 0) {
-	    		p.setHealth(20.0);
-	        	sabotage.broadcastAll(Sprink.color("&cA player has died... " + (playerManager.players(true).size() - 1) + " players remain."));
-	        	kill2(p);
-	    	}
-    	}
+    	// 	/* Player died */
+    	// 	if(p.getHealth() - e.getFinalDamage() <= 0) {
+	    // 		e.setCancelled(true);
+	    // 		p.setHealth(20.0);
+	    //     	sabotage.broadcastAll(Sprink.color("&cA player has died... " + (playerManager.players(true).size() - 1) + " players remain."));
+	    //     	kill2(p);
+	    // 	}
+    	// }
+    }
+
+	@EventHandler
+    public void onPlayerDealDamage(EntityDamageByEntityEvent e) { 
+		IngamePlayer damager = playerManager.getRole(e.getDamager().getUniqueId());
+
+		if(damager == null || !this.playerManager.isAlive(e.getEntity().getUniqueId()))
+			return;
+
+		if(!this.playerManager.isAlive(damager.player.getUniqueId())) {
+			e.setCancelled(true);
+			return;
+		}
+        
+        double result = damager.blood < 2.0 ? 0.2 : 0.0;
+        damager.blood += result;
     }
 
     @EventHandler
     public void onCorpseClick(CorpseOpenInventoryEvent e) {
-    	if(!sabotage.players.contains(e.getClicker().getUniqueId()))
-    		return;
-    	
     	IngamePlayer clicker = playerManager.getRole(e.getClicker().getUniqueId());
     	IngamePlayer corpse  = playerManager.dead().get(e.getCorpse().getId());
     	
-		if(clicker == null || !playerManager.isAlive(clicker.player.getUniqueId())) {
+		if(clicker == null) return;
+
+		if(!playerManager.isAlive(clicker.player.getUniqueId())) {
 			e.setCancelled(true);
 			return;
 		}
 
-    	if(clicker instanceof Detective && e.getClicker().getInventory().getItemInMainHand().getType().equals(Material.SHEARS) && corpse != null) {
-    		if(testCorpse == null) {
-    			this.testCorpse = new TestCorpse(this,corpse,e.getCorpse().getBody().getStoredLocation());
-    			this.testCorpse.runTaskTimer(Main.plugin, 0L, 20L);
-    		}
-   
-    		e.setCancelled(true);
+		if(clicker instanceof Detective && e.getClicker().getInventory().getItemInMainHand().getType().equals(Material.SHEARS) && corpse != null) {
+			if(testCorpse == null) {
+				this.testCorpse = new TestCorpse(this,corpse,e.getCorpse().getBody().getStoredLocation());
+				this.testCorpse.runTaskTimer(Main.plugin, 0L, 20L);
+			}
+
+			e.setCancelled(true);
+		}
+    }
+
+	@EventHandler
+    public void onPlayerClick(PlayerInteractEvent e) {
+		if(!sabotage.players.contains(e.getPlayer().getUniqueId()) || !playerManager.isAlive(e.getPlayer().getUniqueId()))
+			return;
+    	
+    	if(e.getPlayer().getInventory().getItemInMainHand().getType().equals(Material.COMPASS)) 
+    		doCompass(e);
+    	
+    	else if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
+    		if(e.getClickedBlock().getState() instanceof Sign)
+    			test(e);
+    		else 
+    			SharedListener.rightClickBlock(e);
     	}
     }
     
     @EventHandler
-    public void onRightClickPlayer(PlayerInteractEntityEvent e) {    	
+    public void onPlayerClickPlayer(PlayerInteractEntityEvent e) {    	
         IngamePlayer clicker = playerManager.getRole(e.getPlayer().getUniqueId());
         IngamePlayer clicked = playerManager.getRole(e.getRightClicked().getUniqueId());
         ItemStack item = e.getPlayer().getInventory().getItemInMainHand();
@@ -340,7 +391,7 @@ public class Ingame implements Listener {
     }
     
     @EventHandler
-    public void blockPlace(BlockPlaceEvent e) {
+    public void onPlayerPlaceBlock(BlockPlaceEvent e) {
 		if(!sabotage.players.contains(e.getPlayer().getUniqueId()))
 			return;
 		
@@ -352,41 +403,26 @@ public class Ingame implements Listener {
     	IngamePlayer placer = playerManager.getRole(e.getPlayer().getUniqueId());
 
         if(e.getBlock().getType().equals(Material.OAK_LEAVES)) {
-	        	
-	            if(placer.getPanics() == 0) 
-	            	placer.timeout = false;
-	            
-	            if(placer.timeout)  
+				if(placer.timeout && placer.panics.stream().filter(panic -> panic.alive).count() == 0) {
+					placer.timeout = false;
+					placer.panics.clear();
+				}
+
+	            if(placer.timeout) 
 	            	e.setCancelled(true);
-	            
 	            else 
 	            	new Panic(placer, e.getBlock().getLocation()).runTaskTimer(Main.plugin, 0L, 20L);
         }
         
         else SharedListener.onBlockPlace(e);
     }
-
     
     @EventHandler
-    public void onClick(PlayerInteractEvent e) {
-		if(!sabotage.players.contains(e.getPlayer().getUniqueId()) || !playerManager.isAlive(e.getPlayer().getUniqueId()))
-			return;
-    	
-    	if(e.getPlayer().getInventory().getItemInMainHand().getType().equals(Material.COMPASS)) 
-    		doCompass(e);
-    	
-    	else if(e.getAction().equals(Action.RIGHT_CLICK_BLOCK)) {
-    		if(e.getClickedBlock().getState() instanceof Sign)
-    			test(e);
-    		else 
-    			SharedListener.rightClickBlock(e);
-    	}
-    }
-    
-    @EventHandler
-    public void deadChat(AsyncPlayerChatEvent e) {
-		if(!sabotage.players.contains(e.getPlayer().getUniqueId()))
-			return;
+    public void onPlayerChat(AsyncPlayerChatEvent e) {
+		if(!sabotage.players.contains(e.getPlayer().getUniqueId())) {
+			e.getRecipients().removeAll(sabotage.players.stream().map(Bukkit::getPlayer).collect(Collectors.toList()));
+			return;	
+		}
     	
     	IngamePlayer player = playerManager.getRole(e.getPlayer().getUniqueId());
     	
@@ -460,9 +496,6 @@ public class Ingame implements Listener {
     }
 
     private void kill2(Player dead) {   
-		if(!sabotage.players.contains(dead.getUniqueId()))
-			return;
-		
         IngamePlayer victim = playerManager.getRole(dead.getUniqueId());
         IngamePlayer killer = dead.getKiller() == null ? null : playerManager.getRole(dead.getKiller().getUniqueId());
         
@@ -471,7 +504,7 @@ public class Ingame implements Listener {
         	
         	victim.die(killer);
         	playerManager.smite(victim.player);
-        	CorpseImmortal.API().spawnCorpse(victim.player.getName(), deathbed);
+        	// CorpseImmortal.API().spawnCorpse(victim.player.getName(), deathbed);
         	
         	if(killer != null && playerManager.isAlive(killer.player.getUniqueId())) {
             	killer.kill(victim);

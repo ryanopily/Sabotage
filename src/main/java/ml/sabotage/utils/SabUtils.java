@@ -2,6 +2,10 @@ package ml.sabotage.utils;
 
 import java.io.File;
 
+import org.apache.commons.io.FileUtils;
+
+import ml.zer0dasho.plumber.utils.Trycat;
+
 public class SabUtils {
 	
 	public static final File SOURCE = new File("plugins/Sabotage/worlds");
@@ -15,9 +19,12 @@ public class SabUtils {
     	
     	for(String toDelete : delete) {
     		File file = new File(mapFolder, toDelete);
- 
+
     		if(file.exists())
-    			file.delete();
+				Trycat.Try(
+					() -> FileUtils.forceDelete(file),
+					(e) -> {}
+				);
     	}
     }
 }

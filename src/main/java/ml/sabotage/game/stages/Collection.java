@@ -15,7 +15,6 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
@@ -117,14 +116,6 @@ public class Collection implements Listener {
 		
 		if(e.getPlayer().getLocation().getY() < 0)
 			e.getPlayer().teleport(this.map.getWorld().getSpawnLocation());
-    }
-    
-    @EventHandler
-    public void onDropItem(PlayerDropItemEvent e) {
-		if(!sabotage.players.contains(e.getPlayer().getUniqueId()))
-			return;
-		
-    	SharedListener.droppedShears(e);
     }
     
     @EventHandler

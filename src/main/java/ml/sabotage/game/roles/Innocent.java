@@ -37,32 +37,6 @@ public class Innocent extends IngamePlayer {
 	}
 
     @SHOP
-    public void Speed_II() {
-        if(!hasKarma(40)) return;
-        
-        if(player.hasPotionEffect(PotionEffectType.SPEED))
-            player.sendMessage(Sprink.color("&cYou already have speed...!"));
-        else {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 600, 2));
-            player.sendMessage(Sprink.color("&aYou just bought Speed II!"));
-            sabPlayer.addKarma(-40);
-        }
-    }
-    
-    @SHOP
-    public void Invisibility() {
-        if(!hasKarma(80)) return;
-        
-        if(player.hasPotionEffect(PotionEffectType.INVISIBILITY))
-            player.sendMessage(Sprink.color("&cYou already have invisibility...!"));
-        else {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 600, 2));
-            player.sendMessage(Sprink.color("&aYou just bought Invisibility!"));
-            sabPlayer.addKarma(-80);
-        }
-    }
-
-    @SHOP
     public void Second_Wind() {
         if(!hasKarma(60)) return;
 

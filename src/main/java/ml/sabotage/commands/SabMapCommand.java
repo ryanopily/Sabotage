@@ -31,7 +31,7 @@ import ml.zer0dasho.plumber.utils.Trycat;
 
 public class SabMapCommand implements CommandExecutor, TabCompleter {
 
-	private static Map<String, World> loadedMaps = Maps.newHashMap();
+	private static final Map<String, World> LOADED_MAPS = Maps.newHashMap();
 	
     public SabMapCommand() {
     	Main.plugin.getCommand("sabmap").setExecutor(this);
@@ -49,9 +49,13 @@ public class SabMapCommand implements CommandExecutor, TabCompleter {
 				unload((Player) sender, args[1]);
 			else
 				sendHelp(sender);
-				
-		} catch(ClassCastException ex) {
+		} 
+		catch(ClassCastException ex) {
 			sender.sendMessage(Sprink.color("&cOnly players can use this command!"));
+		} 
+		catch(Exception ex) {
+			sender.sendMessage(Sprink.color("&cSomething went wrong..."));
+			ex.printStackTrace();
 		}
 		
 		return true;
@@ -72,9 +76,11 @@ public class SabMapCommand implements CommandExecutor, TabCompleter {
 			String commandName = COMMANDS.get(i), permission = PERMISSIONS.get(i);
 			
 			if(commandName.startsWith(args[0]) && sender.hasPermission(permission)) {
+				/* Suggest commands */
 				if(args.length <= 1)
 					result.add(commandName);
 				
+				/* Suggest maps */
 				else if(cmd.matches(".+ .+"))
 					result.addAll(
 						Main.config.maps.stream()
@@ -92,7 +98,7 @@ public class SabMapCommand implements CommandExecutor, TabCompleter {
 	
 	public static void load(Player sender, String worldName) {
 		
-		if(!loadedMaps.containsKey(worldName)) {
+		if(!LOADED_MAPS.containsKey(worldName)) {
 			File src = new File(SabUtils.SOURCE, worldName);
 			File dest = new File(Bukkit.getWorldContainer(), UUID.randomUUID().toString());
 			
@@ -101,32 +107,29 @@ public class SabMapCommand implements CommandExecutor, TabCompleter {
 				return;
 			}
 			
-			Trycat.Try(() -> {
-				
+			Trycat.Try(() -> {	
 				SabUtils.cleanMap(src);
 				FileUtils.copyDirectory(src, dest);
-				
 				World arena = Bukkit.createWorld(new WorldCreator(dest.getName()));
-				loadedMaps.put(worldName, arena);	
-				
+				LOADED_MAPS.put(worldName, arena);	
 			}, (e) -> {
 				sender.sendMessage(Sprink.color("&cSomething went wrong..."));
 				e.printStackTrace();
 			});
 		}
 		
-		if(loadedMaps.containsKey(worldName))
-			sender.teleport(loadedMaps.get(worldName).getSpawnLocation());
+		if(LOADED_MAPS.containsKey(worldName))
+			sender.teleport(LOADED_MAPS.get(worldName).getSpawnLocation());
 	}	
 	
 	public static void unload(CommandSender sender, String worldName) {
-		World arena = loadedMaps.get(worldName);
-
+		World arena = LOADED_MAPS.get(worldName);
+		
 		if(arena == null)
 			sender.sendMessage(Sprink.color(String.format("&c%s isn't loaded", worldName)));
 		
 		else {
-			loadedMaps.remove(worldName);
+			LOADED_MAPS.remove(worldName);
 			
 			World world = Bukkit.getWorlds().get(0);
 			File srcFolder = arena.getWorldFolder();
@@ -140,7 +143,6 @@ public class SabMapCommand implements CommandExecutor, TabCompleter {
 				public void run() {
 					Trycat.Try(() -> {
 						SabUtils.cleanMap(srcFolder);
-						
 						FileUtils.forceDelete(destFolder);
 						FileUtils.copyDirectory(srcFolder, destFolder);
 						FileUtils.forceDelete(srcFolder);

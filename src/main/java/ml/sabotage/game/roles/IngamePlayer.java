@@ -6,6 +6,8 @@ import java.util.Set;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import com.google.common.collect.Sets;
 
@@ -19,11 +21,10 @@ public abstract class IngamePlayer {
 
     public double blood;
     public boolean timeout;
-    
-    private Set<Panic> panics;
 
     public final Player player;
     public final SabPlayer sabPlayer;
+    public final Set<Panic> panics;
 
     public IngamePlayer(SabPlayer sabPlayer) {
         this.sabPlayer = sabPlayer;
@@ -120,18 +121,17 @@ public abstract class IngamePlayer {
             sabPlayer.addKarma(-40);
         }
     }
-    
-    /* Getters */
-    
-    public int getPanics() {
-    	return this.panics.size();
+
+    @SHOP
+    public void Invisibility() {
+        if(!hasKarma(80)) return;
+        
+        if(player.hasPotionEffect(PotionEffectType.INVISIBILITY))
+            player.sendMessage(Sprink.color("&cYou already have invisibility...!"));
+        else {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 600, 2));
+            player.sendMessage(Sprink.color("&aYou just bought Invisibility!"));
+            sabPlayer.addKarma(-80);
+        }
     }
-    
-    public void removePanic(Panic panic) {
-    	this.panics.remove(panic);
-    }
-    
-    public void addPanic(Panic panic) {
-    	this.panics.add(panic);
-    }   
 }
